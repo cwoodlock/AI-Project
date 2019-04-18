@@ -119,13 +119,57 @@ public class GameRunner implements KeyListener{
 					}else if(row <= model.size() - 1 && col <= model.size() - 1 && model.get(row, col) == '\u0031') {
 						JOptionPane.showMessageDialog(null, "Your attack has increased!");
 						model.set(row, col, '0');
+						
 					//if it is a bomb	
 					}else if(row <= model.size() - 1 && col <= model.size() - 1 && model.get(row, col) == '\u0033'){
 						JOptionPane.showMessageDialog(null, "Boom");
 						model.set(row, col, '0');
+						
+					//If it is a H-Bomb	
 					}else if(row <= model.size() - 1 && col <= model.size() - 1 && model.get(row, col) == '\u0034') {
 						JOptionPane.showMessageDialog(null, "BOOM!");
 						model.set(row, col, '0');
+						
+						//If it is a Black Spider	
+					}else if(row <= model.size() - 1 && col <= model.size() - 1 && model.get(row, col) == '\u0036') {
+						JOptionPane.showMessageDialog(null, "Black Spider!");
+						model.set(row, col, '\u0020');
+						
+						//If it is a Blue Spider
+					}else if(row <= model.size() - 1 && col <= model.size() - 1 && model.get(row, col) == '\u0037') {
+						JOptionPane.showMessageDialog(null, "Blue Spider!");
+						model.set(row, col, '\u0020');
+						
+						//If it is a Brown Spider	
+					}else if(row <= model.size() - 1 && col <= model.size() - 1 && model.get(row, col) == '\u0038') {
+						JOptionPane.showMessageDialog(null, "Brown Spider!");
+						model.set(row, col, '\u0020');
+						
+						//If it is a Green Spider	
+					}else if(row <= model.size() - 1 && col <= model.size() - 1 && model.get(row, col) == '\u0039') {
+						JOptionPane.showMessageDialog(null, "Green Spider!");
+						model.set(row, col, '\u0020');
+						
+						//If it is a Grey Spider	
+					}else if(row <= model.size() - 1 && col <= model.size() - 1 && model.get(row, col) == '\u003A') {
+						JOptionPane.showMessageDialog(null, "Grey Spider!");
+						model.set(row, col, '\u0020');
+						
+						//If it is a Orange	Spider
+					}else if(row <= model.size() - 1 && col <= model.size() - 1 && model.get(row, col) == '\u003B') {
+						JOptionPane.showMessageDialog(null, "Orange Spider!");
+						model.set(row, col, '\u0020');
+						
+						//If it is a Red Spider	
+					}else if(row <= model.size() - 1 && col <= model.size() - 1 && model.get(row, col) == '\u003C') {
+						JOptionPane.showMessageDialog(null, "Red Spider!");
+						model.set(row, col, '\u0020');
+						
+						//If it is a Yellow Spider	
+					}else if(row <= model.size() - 1 && col <= model.size() - 1 && model.get(row, col) == '\u003D') {
+						JOptionPane.showMessageDialog(null, "Yellow Spider!");
+						model.set(row, col, '\u0020');
+						
 					}else{
 						// removes block in front of the character
 						model.set(row, col, '\u0020');
