@@ -106,24 +106,26 @@ public class GameRunner implements KeyListener{
 						int n = rand.nextInt(2);
 						if(n == 0) {
 							JOptionPane.showMessageDialog(null, "Press Esc to exit the game");
+							model.set(row, col, '\u0020');
 						}else if(n== 1) {
 							JOptionPane.showMessageDialog(null, "Use Arrow buttons to navigate");
+							model.set(row, col, '\u0020');
 						}else if(n == 2) {
 							JOptionPane.showMessageDialog(null, "Press Z to zoom the map");
+							model.set(row, col, '\u0020');
 						}
-					    
-					}
-					else
-					{
+					
+					//if it is a sword
+					}else if(row <= model.size() - 1 && col <= model.size() - 1 && model.get(row, col) == '\u0031') {
+						JOptionPane.showMessageDialog(null, "Your attack has increased!");
+						model.set(row, col, '\u0020');
+					}else{
 						// removes block in front of the character
 						model.set(row, col, '\u0020');
 					    JOptionPane.showMessageDialog(null, "Item Destroyed");
-
 					}
-	        	}
-	        	else
-	        	{
-	        	    // no option
+	        	}else{
+	        	    // If user clicks no do nothing
 	        	}
 			}
 			return false; //Can't move
