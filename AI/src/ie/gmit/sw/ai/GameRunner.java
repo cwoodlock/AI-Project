@@ -98,7 +98,7 @@ public class GameRunner implements KeyListener{
 		}else{
 			{//Adapted from https://www.mkyong.com/swing/java-swing-how-to-make-a-confirmation-dialog/
 			 //Adapted from https://stackoverflow.com/questions/5887709/getting-random-numbers-in-java
-				if (JOptionPane.showConfirmDialog(null, "Do you want to Interact with this?", "WARNING",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
+				if (JOptionPane.showConfirmDialog(null, "Would you like to interact with this item?", "WARNING",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
 	        	{
 	        	    // If user clicks yes and it is a question mark 
 					if(row <= model.size() - 1 && col <= model.size() - 1 && model.get(row, col) == '\u0032')
@@ -106,19 +106,23 @@ public class GameRunner implements KeyListener{
 						int n = rand.nextInt(2);
 						if(n == 0) {
 							JOptionPane.showMessageDialog(null, "Press Esc to exit the game");
-							model.set(row, col, '\u0020');
+							model.set(row, col, '0');
 						}else if(n== 1) {
 							JOptionPane.showMessageDialog(null, "Use Arrow buttons to navigate");
-							model.set(row, col, '\u0020');
+							model.set(row, col, '0');
 						}else if(n == 2) {
 							JOptionPane.showMessageDialog(null, "Press Z to zoom the map");
-							model.set(row, col, '\u0020');
+							model.set(row, col, '0');
 						}
 					
 					//if it is a sword
 					}else if(row <= model.size() - 1 && col <= model.size() - 1 && model.get(row, col) == '\u0031') {
 						JOptionPane.showMessageDialog(null, "Your attack has increased!");
-						model.set(row, col, '\u0020');
+						model.set(row, col, '0');
+					//if it is a bomb	
+					}else if(row <= model.size() - 1 && col <= model.size() - 1 && model.get(row, col) == '\u0033'){
+						JOptionPane.showMessageDialog(null, "Boom");
+						model.set(row, col, '0');
 					}else{
 						// removes block in front of the character
 						model.set(row, col, '\u0020');
