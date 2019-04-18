@@ -3,6 +3,7 @@ package ie.gmit.sw.ai;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import java.util.Random;
 public class GameRunner implements KeyListener{
 	private static final int MAZE_DIMENSION = 100;
 	private static final int IMAGE_COUNT = 14;
@@ -11,6 +12,7 @@ public class GameRunner implements KeyListener{
 	private Maze model;
 	private int currentRow;
 	private int currentCol;
+	private Random rand = new Random();
 	
 	public GameRunner() throws Exception{
 		model = new Maze(MAZE_DIMENSION);
@@ -88,12 +90,45 @@ public class GameRunner implements KeyListener{
 	public void keyTyped(KeyEvent e) {} //Ignore
    
 	private boolean isValidMove(int row, int col){
+		
 		if (row <= model.size() - 1 && col <= model.size() - 1 && model.get(row, col) == ' '){
-			model.set(currentRow, currentCol, '\u0020'); // \u0020 is a blank space, replace last position with blank space
+			model.set(currentRow, currentCol, '\u0020'); // u0020 is a blank space, replace last position with blank space
 			model.set(row, col, '5');
 			return true;
 		}else{
+			{//Adapted from https://www.mkyong.com/swing/java-swing-how-to-make-a-confirmation-dialog/
+			 //Adapted from https://stackoverflow.com/questions/5887709/getting-random-numbers-in-java
+				if (JOptionPane.showConfirmDialog(null, "Do you want to Interact with this?", "WARNING",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
+	        	{
+	        	    // If user clicks yes and it is a question mark 
+					if(row <= model.size() - 1 && col <= model.size() - 1 && model.get(row, col) == '\u0032')
+					{
+						int n = rand.nextInt(2);
+						if(n == 0) {
+							JOptionPane.showMessageDialog(null, "Press Esc to exit the game");
+						}else if(n== 1) {
+							JOptionPane.showMessageDialog(null, "Use Arrow buttons to navigate");
+						}else if(n == 2) {
+							JOptionPane.showMessageDialog(null, "Press Z to zoom the map");
+						}
+					    
+					}
+					else
+					{
+						// removes block in front of the character
+						model.set(row, col, '\u0020');
+					    JOptionPane.showMessageDialog(null, "Item Destroyed");
+
+					}
+	        	}
+	        	else
+	        	{
+	        	    // no option
+	        	}
+			}
 			return false; //Can't move
+
+
 		}
 	}
 	
