@@ -12,7 +12,13 @@ public class GameRunner implements KeyListener{
 	private Maze model;
 	private int currentRow;
 	private int currentCol;
-	private Random rand = new Random();
+	private Random rand = new Random(); //used to generate a random number
+	
+	//Player info
+	private int maxHealth = 20;
+	private int maxStrength = 10;
+	private int currentHealth = 20;
+	private int currentStrength = 5;
 	
 	public GameRunner() throws Exception{
 		model = new Maze(MAZE_DIMENSION);
@@ -79,7 +85,9 @@ public class GameRunner implements KeyListener{
         }else if (e.getKeyCode() == KeyEvent.VK_Z){
         	view.toggleZoom(); //Toggle zoom in and out
         }else if(e.getKeyCode() == KeyEvent.VK_ESCAPE){
-        	System.exit(0);
+        	System.exit(0);	 //Exit the game
+        }else if(e.getKeyCode() == KeyEvent.VK_I) {
+        	JOptionPane.showMessageDialog(null, "Info: \n Current Health: " + currentHealth + "\n Current Strength: " + currentStrength);
         }else {
         	return;
         }
@@ -118,16 +126,21 @@ public class GameRunner implements KeyListener{
 					//if it is a sword
 					}else if(row <= model.size() - 1 && col <= model.size() - 1 && model.get(row, col) == '\u0031') {
 						JOptionPane.showMessageDialog(null, "Your attack has increased!");
+						if(currentStrength < maxStrength) {
+							currentStrength++;
+						}
 						model.set(row, col, '0');
 						
 					//if it is a bomb	
 					}else if(row <= model.size() - 1 && col <= model.size() - 1 && model.get(row, col) == '\u0033'){
 						JOptionPane.showMessageDialog(null, "Boom");
+						currentHealth -= 5;
 						model.set(row, col, '0');
 						
 					//If it is a H-Bomb	
 					}else if(row <= model.size() - 1 && col <= model.size() - 1 && model.get(row, col) == '\u0034') {
 						JOptionPane.showMessageDialog(null, "BOOM!");
+						currentHealth -= 10;
 						model.set(row, col, '0');
 						
 						//If it is a Black Spider	
