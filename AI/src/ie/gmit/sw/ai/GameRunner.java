@@ -135,12 +135,14 @@ public class GameRunner implements KeyListener{
 					}else if(row <= model.size() - 1 && col <= model.size() - 1 && model.get(row, col) == '\u0033'){
 						JOptionPane.showMessageDialog(null, "Boom");
 						currentHealth -= 5;
+						isAlive(currentHealth);
 						model.set(row, col, '0');
 						
 					//If it is a H-Bomb	
 					}else if(row <= model.size() - 1 && col <= model.size() - 1 && model.get(row, col) == '\u0034') {
 						JOptionPane.showMessageDialog(null, "BOOM!");
 						currentHealth -= 10;
+						isAlive(currentHealth);
 						model.set(row, col, '0');
 						
 						//If it is a Black Spider	
@@ -221,6 +223,16 @@ public class GameRunner implements KeyListener{
 		sprites[12] = new Sprite("Red Spider", 2, "resources/images/spiders/red_spider_1.png", "resources/images/spiders/red_spider_2.png");
 		sprites[13] = new Sprite("Yellow Spider", 2, "resources/images/spiders/yellow_spider_1.png", "resources/images/spiders/yellow_spider_2.png");
 		return sprites;
+	}
+	
+	private boolean isAlive(int health) {
+		if(health > 0) {
+			return true;
+		} else {
+			JOptionPane.showMessageDialog(null, "You Died! Game Over!");
+			System.exit(0);
+			return false;
+		}
 	}
 	
 	public static void main(String[] args) throws Exception{
