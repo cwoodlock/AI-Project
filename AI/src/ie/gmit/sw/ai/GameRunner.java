@@ -123,6 +123,9 @@ public class GameRunner implements KeyListener{
 					}else if(row <= model.size() - 1 && col <= model.size() - 1 && model.get(row, col) == '\u0033'){
 						JOptionPane.showMessageDialog(null, "Boom");
 						model.set(row, col, '0');
+					}else if(row <= model.size() - 1 && col <= model.size() - 1 && model.get(row, col) == '\u0034') {
+						JOptionPane.showMessageDialog(null, "BOOM!");
+						model.set(row, col, '0');
 					}else{
 						// removes block in front of the character
 						model.set(row, col, '\u0020');
