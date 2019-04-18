@@ -52,7 +52,7 @@ public class GameRunner implements KeyListener{
 		view.setCurrentCol(currentCol);
 	}
 
-	//Key press events/Game controls
+	//Key press events/Game Controls
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_RIGHT && currentCol < MAZE_DIMENSION - 1) {
         	if (isValidMove(currentRow, currentCol + 1)){
@@ -76,7 +76,9 @@ public class GameRunner implements KeyListener{
         	}         	  	
         }else if (e.getKeyCode() == KeyEvent.VK_Z){
         	view.toggleZoom(); //Toggle zoom in and out
-        }else{
+        }else if(e.getKeyCode() == KeyEvent.VK_ESCAPE){
+        	System.exit(0);
+        }else {
         	return;
         }
         
