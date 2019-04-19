@@ -3,14 +3,14 @@ package ie.gmit.sw.ai.traversers;
 import java.util.*;
 import ie.gmit.sw.ai.maze.*;
 public class SteepestAscentHillClimbingTraversator implements Traversator{
-	private Nade goal;
+	private Node goal;
 	
-	public SteepestAscentHillClimbingTraversator(Nade goal){
+	public SteepestAscentHillClimbingTraversator(Node goal){
 		this.goal = goal;
 	}
 	
-	public void traverse(Nade[][] maze, Nade node) {
-		LinkedList<Nade> queue = new LinkedList<Nade>();
+	public void traverse(Node[][] maze, Node node) {
+		LinkedList<Node> queue = new LinkedList<Node>();
 		queue.addFirst(node);
 		
         long time = System.currentTimeMillis();
@@ -34,8 +34,8 @@ public class SteepestAscentHillClimbingTraversator implements Traversator{
 			}
 			
 			//Sort the children of the current node in order of increasing h(n)
-			Nade[] children = node.children(maze);
-			Collections.sort(Arrays.asList(children),(Nade current, Nade next) -> next.getHeuristic(goal) - current.getHeuristic(goal));
+			Node[] children = node.children(maze);
+			Collections.sort(Arrays.asList(children),(Node current, Node next) -> next.getHeuristic(goal) - current.getHeuristic(goal));
 			
 			for (int i = 0; i < children.length; i++) {			
 				if (children[i] != null && !children[i].isVisited()){

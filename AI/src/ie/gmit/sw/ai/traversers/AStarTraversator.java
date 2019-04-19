@@ -1,60 +1,58 @@
 package ie.gmit.sw.ai.traversers;
 
-import ie.gmit.sw.ai.*;
-import ie.gmit.sw.ai.maze.Nade;
-
+import ie.gmit.sw.ai.maze.*;
 import java.util.*;
-public class AStarTraversator{
-	private Nade goal;
-
-	public AStarTraversator(Nade goal){
+public class AStarTraversator implements Traversator{
+	private Node goal;
+	
+	public AStarTraversator(Node goal){
 		this.goal = goal;
 	}
-
-	public void traverse(Nade[][] maze, Nade Nade) {
+	
+	public void traverse(Node[][] maze, Node node) {
         long time = System.currentTimeMillis();
     	int visitCount = 0;
-
-		PriorityQueue<Nade> open = new PriorityQueue<Nade>(20, (Nade current, Nade next)-> (current.getPathCost() + current.getHeuristic(goal)) - (next.getPathCost() + next.getHeuristic(goal)));
-		java.util.List<Nade> closed = new ArrayList<Nade>();
-
-		open.offer(Nade);
-		Nade.setPathCost(0);
+    	
+		PriorityQueue<Node> open = new PriorityQueue<Node>(20, (Node current, Node next)-> (current.getPathCost() + current.getHeuristic(goal)) - (next.getPathCost() + next.getHeuristic(goal)));
+		java.util.List<Node> closed = new ArrayList<Node>();
+    	   	
+		open.offer(node);
+		node.setPathCost(0);		
 		while(!open.isEmpty()){
-			Nade = open.poll();
-			closed.add(Nade);
-			Nade.setVisited(true);
+			node = open.poll();		
+			closed.add(node);
+			node.setVisited(true);	
 			visitCount++;
-
-			if (Nade.isGoalNode()){
+			
+			if (node.isGoalNode()){
 		        time = System.currentTimeMillis() - time; //Stop the clock
-		        //TraversatorStats.printStats(Nade, time, visitCount);
+		        TraversatorStats.printStats(node, time, visitCount);
 				break;
 			}
-
-			try { //Simulate processing each expanded Nade
+			
+			try { //Simulate processing each expanded node
 				Thread.sleep(1);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-
-			//Process adjacent Nades
-			Nade[] children = Nade.children(maze);
+			
+			//Process adjacent nodes
+			Node[] children = node.children(maze);
 			for (int i = 0; i < children.length; i++) {
-				Nade child = children[i];
-				int score = Nade.getPathCost() + 1 + child.getHeuristic(goal);
+				Node child = children[i];
+				int score = node.getPathCost() + 1 + child.getHeuristic(goal);
 				int existing = child.getPathCost() + child.getHeuristic(goal);
-
+				
 				if ((open.contains(child) || closed.contains(child)) && existing < score){
 					continue;
 				}else{
 					open.remove(child);
 					closed.remove(child);
-					child.setParent(Nade);
-					child.setPathCost(Nade.getPathCost() + 1);
+					child.setParent(node);
+					child.setPathCost(node.getPathCost() + 1);
 					open.add(child);
 				}
-			}
+			}									
 		}
 	}
 }

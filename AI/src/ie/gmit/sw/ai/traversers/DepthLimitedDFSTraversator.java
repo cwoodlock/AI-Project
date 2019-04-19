@@ -2,7 +2,7 @@ package ie.gmit.sw.ai.traversers;
 
 import ie.gmit.sw.ai.maze.*;
 public class DepthLimitedDFSTraversator implements Traversator{
-	private Nade[][] maze;
+	private Node[][] maze;
 	private int limit;
 	private boolean keepRunning = true;
 	private long time = System.currentTimeMillis();
@@ -12,13 +12,13 @@ public class DepthLimitedDFSTraversator implements Traversator{
 		this.limit = limit;
 	}
 	
-	public void traverse(Nade[][] maze, Nade node) {
+	public void traverse(Node[][] maze, Node node) {
 		this.maze = maze;
 		System.out.println("Search with limit " + limit);
 		dfs(node, 1);
 	}
 	
-	private void dfs(Nade node, int depth){
+	private void dfs(Node node, int depth){
 		if (!keepRunning || depth > limit) return;
 		
 		node.setVisited(true);	
@@ -37,7 +37,7 @@ public class DepthLimitedDFSTraversator implements Traversator{
 			e.printStackTrace();
 		}
 		
-		Nade[] children = node.children(maze);
+		Node[] children = node.children(maze);
 		for (int i = 0; i < children.length; i++) {
 			if (children[i] != null && !children[i].isVisited()){
 				children[i].setParent(node);

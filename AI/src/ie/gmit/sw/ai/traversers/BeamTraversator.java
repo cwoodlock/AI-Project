@@ -3,16 +3,16 @@ package ie.gmit.sw.ai.traversers;
 import ie.gmit.sw.ai.maze.*;
 import java.util.*;
 public class BeamTraversator implements Traversator{
-	private Nade goal;
+	private Node goal;
 	private int beamWidth= 1; 
 	
-	public BeamTraversator(Nade goal,  int beamWidth){
+	public BeamTraversator(Node goal,  int beamWidth){
 		this.goal = goal;
 		this.beamWidth = beamWidth;
 	}
 	
-	public void traverse(Nade[][] maze, Nade node) {
-		LinkedList<Nade> queue = new LinkedList<Nade>();
+	public void traverse(Node[][] maze, Node node) {
+		LinkedList<Node> queue = new LinkedList<Node>();
 		queue.addFirst(node);
 		
         long time = System.currentTimeMillis();
@@ -35,8 +35,8 @@ public class BeamTraversator implements Traversator{
 				e.printStackTrace();
 			}
 			
-			Nade[] children = node.children(maze);
-			Collections.sort(Arrays.asList(children),(Nade current, Nade next) -> current.getHeuristic(goal) - next.getHeuristic(goal));
+			Node[] children = node.children(maze);
+			Collections.sort(Arrays.asList(children),(Node current, Node next) -> current.getHeuristic(goal) - next.getHeuristic(goal));
 			
 			int bound = 0;
 			if (children.length < beamWidth){

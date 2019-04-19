@@ -3,14 +3,14 @@ package ie.gmit.sw.ai.traversers;
 import ie.gmit.sw.ai.maze.*;
 import java.util.*;
 public class BestFirstTraversator implements Traversator{
-	private Nade goal;
+	private Node goal;
 	
-	public BestFirstTraversator(Nade goal){
+	public BestFirstTraversator(Node goal){
 		this.goal = goal;
 	}
 	
-	public void traverse(Nade[][] maze, Nade node) {
-		LinkedList<Nade> queue = new LinkedList<Nade>();
+	public void traverse(Node[][] maze, Node node) {
+		LinkedList<Node> queue = new LinkedList<Node>();
 		queue.addFirst(node);
 		
         long time = System.currentTimeMillis();
@@ -33,7 +33,7 @@ public class BestFirstTraversator implements Traversator{
 				e.printStackTrace();
 			}
 			
-			Nade[] children = node.children(maze);
+			Node[] children = node.children(maze);
 			for (int i = 0; i < children.length; i++) {
 				if (children[i] != null && !children[i].isVisited()){
 					children[i].setParent(node);
@@ -42,7 +42,7 @@ public class BestFirstTraversator implements Traversator{
 			}
 			
 			//Sort the whole queue. Effectively a priority queue, first in, best out
-			Collections.sort(queue,(Nade current, Nade next) -> current.getHeuristic(goal) - next.getHeuristic(goal));		
+			Collections.sort(queue,(Node current, Node next) -> current.getHeuristic(goal) - next.getHeuristic(goal));		
 		}
 	}
 }

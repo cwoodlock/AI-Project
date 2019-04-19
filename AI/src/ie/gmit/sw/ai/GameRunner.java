@@ -3,6 +3,10 @@ package ie.gmit.sw.ai;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+
+import ie.gmit.sw.ai.maze.Node;
+import ie.gmit.sw.ai.traversers.*;
+
 import java.util.Random;
 public class GameRunner implements KeyListener{
 	private static final int MAZE_DIMENSION = 100;
@@ -19,6 +23,10 @@ public class GameRunner implements KeyListener{
 	private int maxStrength = 10;
 	private int currentHealth = 20;
 	private int currentStrength = 5;
+	
+	//Node info
+	private Node[][] maze;
+	private Node goal;
 	
 	public GameRunner() throws Exception{
 		model = new Maze(MAZE_DIMENSION);
@@ -43,6 +51,10 @@ public class GameRunner implements KeyListener{
         f.setLocation(100,100);
         f.pack();
         f.setVisible(true);
+        
+        Traversator t = new BestFirstTraversator(goal);
+        
+        t.traverse(maze, maze[0][0]);
 	}
 	
 	

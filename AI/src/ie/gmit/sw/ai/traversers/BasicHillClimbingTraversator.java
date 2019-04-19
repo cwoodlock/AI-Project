@@ -1,19 +1,18 @@
 package ie.gmit.sw.ai.traversers;
 
-import ie.gmit.sw.ai.*;
-import ie.gmit.sw.ai.maze.Nade;
-public abstract class BasicHillClimbingTraversator implements Traversator{
-	private Nade goal;
+import ie.gmit.sw.ai.maze.*;
+public class BasicHillClimbingTraversator implements Traversator{
+	private Node goal;
 	
-	public BasicHillClimbingTraversator(Nade goal){
+	public BasicHillClimbingTraversator(Node goal){
 		this.goal = goal;
 	}
 	
-	public void traverse(Nade[][] maze, Nade node) {
+	public void traverse(Node[][] maze, Node node) {
         long time = System.currentTimeMillis();
     	int visitCount = 0;
     	
-    	Nade next = null;
+    	Node next = null;
 		while(node != null){
 			node.setVisited(true);	
 			visitCount++;
@@ -31,7 +30,7 @@ public abstract class BasicHillClimbingTraversator implements Traversator{
 			}
 			
 
-			Nade[] children = node.children(maze);			
+			Node[] children = node.children(maze);			
 			int fnext = Integer.MAX_VALUE;			
 			for (int i = 0; i < children.length; i++) {					
 				if (children[i].getHeuristic(goal) < fnext){

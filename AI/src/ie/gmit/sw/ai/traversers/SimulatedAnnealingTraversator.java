@@ -2,20 +2,20 @@ package ie.gmit.sw.ai.traversers;
 
 import ie.gmit.sw.ai.maze.*;
 public class SimulatedAnnealingTraversator implements Traversator{
-	private Nade goal;
+	private Node goal;
 	
-	public SimulatedAnnealingTraversator(Nade goal){
+	public SimulatedAnnealingTraversator(Node goal){
 		this.goal = goal;
 	}
 	
-	public void traverse(Nade[][] maze, Nade current) {
+	public void traverse(Node[][] maze, Node current) {
         long time = System.currentTimeMillis();
     	int visitCount = 0;
 		double temperature = 10E8; //Initial temperature
 		double alpha = 0.0003; //Cooling rate
 		
-		Nade best = current;
-		Nade next = null;
+		Node best = current;
+		Node next = null;
 		
 
         // Loop until system has cooled
@@ -23,7 +23,7 @@ public class SimulatedAnnealingTraversator implements Traversator{
         	current.setVisited(true);
         	visitCount++;	
 			
-        	Nade[] children = current.children(maze);
+        	Node[] children = current.children(maze);
         	//int index = (int)(children.length * Math.random());
         	
         	int index = new java.util.Random().nextInt(children.length);

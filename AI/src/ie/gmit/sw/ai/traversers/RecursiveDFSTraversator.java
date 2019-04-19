@@ -2,17 +2,17 @@ package ie.gmit.sw.ai.traversers;
 
 import ie.gmit.sw.ai.maze.*;
 public class RecursiveDFSTraversator implements Traversator{
-	private Nade[][] maze;
+	private Node[][] maze;
 	private boolean keepRunning = true;
 	private long time = System.currentTimeMillis();
 	private int visitCount = 0;
 	
-	public void traverse(Nade[][] maze, Nade node) {
+	public void traverse(Node[][] maze, Node node) {
 		this.maze = maze;
 		dfs(node);
 	}
 	
-	private void dfs(Nade node){
+	private void dfs(Node node){
 		if (!keepRunning) return;
 		
 		node.setVisited(true);	
@@ -31,7 +31,7 @@ public class RecursiveDFSTraversator implements Traversator{
 			e.printStackTrace();
 		}
 		
-		Nade[] children = node.children(maze);
+		Node[] children = node.children(maze);
 		for (int i = 0; i < children.length; i++) {
 			if (children[i] != null && !children[i].isVisited()){
 				children[i].setParent(node);

@@ -3,16 +3,16 @@ package ie.gmit.sw.ai.traversers;
 import java.awt.Color;
 import ie.gmit.sw.ai.maze.*;
 public class IDAStarTraversator implements Traversator{
-	private Nade[][] maze;
-	private Nade goal;
+	private Node[][] maze;
+	private Node goal;
 	private int visitCount = 0;
 	private long time;
 	
-	public IDAStarTraversator( Nade goal){
+	public IDAStarTraversator( Node goal){
 		this.goal = goal;
 	}
 	
-	public void traverse(Nade[][] maze, Nade start) {
+	public void traverse(Node[][] maze, Node start) {
 		this.maze = maze;
 		time = System.currentTimeMillis();
 		
@@ -45,7 +45,7 @@ public class IDAStarTraversator implements Traversator{
 		}		
 	}
 	
-	private int contour(Nade node, int g, int bound){
+	private int contour(Node node, int g, int bound){
 		node.setVisited(true);
 		node.setPathCost(g);
 		visitCount++;
@@ -61,7 +61,7 @@ public class IDAStarTraversator implements Traversator{
 		if (node.isGoalNode()) return Integer.MIN_VALUE; //Denotes found
 		int min = Integer.MAX_VALUE; //Denotes not found
 		
-		Nade[] children = node.children(maze);
+		Node[] children = node.children(maze);
 		for (int i = 0; i < children.length; i++) {
 			if (children[i] != null && !children[i].isVisited()){		
 				children[i].setParent(node);

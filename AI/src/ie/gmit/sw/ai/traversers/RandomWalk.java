@@ -2,7 +2,7 @@ package ie.gmit.sw.ai.traversers;
 
 import ie.gmit.sw.ai.maze.*;
 public class RandomWalk implements Traversator{
-	public void traverse(Nade[][] maze, Nade node) {
+	public void traverse(Node[][] maze, Node node) {
         long time = System.currentTimeMillis();
     	int visitCount = 0;
     	   	
@@ -28,7 +28,7 @@ public class RandomWalk implements Traversator{
 			}
 			
 			//Pick a random adjacent node
-        	Nade[] children = node.children(maze);
+        	Node[] children = node.children(maze);
         	node = children[(int)(children.length * Math.random())];		
 		}
 		

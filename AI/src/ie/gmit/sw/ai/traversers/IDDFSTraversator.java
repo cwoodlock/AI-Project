@@ -4,12 +4,12 @@ import java.awt.Color;
 
 import ie.gmit.sw.ai.maze.*;
 public class IDDFSTraversator implements Traversator{
-	private Nade[][] maze;
+	private Node[][] maze;
 	private boolean keepRunning = true;
 	private long time = System.currentTimeMillis();
 	private int visitCount = 0;
 	
-	public void traverse(Nade[][] maze, Nade start) {
+	public void traverse(Node[][] maze, Node start) {
 		this.maze = maze;
 		int limit = 1;
 		
@@ -28,7 +28,7 @@ public class IDDFSTraversator implements Traversator{
       	}
 	}
 
-	private void dfs(Nade node, int depth, int limit){
+	private void dfs(Node node, int depth, int limit){
 		if (!keepRunning || depth > limit) return;		
 		node.setVisited(true);	
 		visitCount++;
@@ -46,7 +46,7 @@ public class IDDFSTraversator implements Traversator{
 			e.printStackTrace();
 		}
 		
-		Nade[] children = node.children(maze);
+		Node[] children = node.children(maze);
 		for (int i = 0; i < children.length; i++) {
 			if (children[i] != null && !children[i].isVisited()){
 				children[i].setParent(node);
