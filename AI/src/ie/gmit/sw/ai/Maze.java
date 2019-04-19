@@ -1,12 +1,17 @@
 package ie.gmit.sw.ai;
 
+import java.util.Random;
+
+import ie.gmit.sw.ai.maze.Node;
 
 public class Maze {
-	private char[][] maze; //An array does not lend itself to the type of mazge generation alogs we use in the labs. There are no "walls" to carve...
+	private Node[][] maze;
+	private Node goal; //An array does not lend itself to the type of mazge generation alogs we use in the labs. There are no "walls" to carve...
 	public Maze(int dimension){
-		maze = new char[dimension][dimension];
+		maze = new Node[dimension][dimension];
 		init();
 		buildMaze();
+		setGoalNode();
 		
 		int featureNumber = (int)((dimension * dimension) * 0.01); //Change this value to control the number of objects
 		addFeature('\u0031', '0', featureNumber); //1 is a sword, 0 is a hedge
@@ -23,12 +28,14 @@ public class Maze {
 		addFeature('\u003B', '0', featureNumber); //; is a Orange Spider, 0 is a hedge
 		addFeature('\u003C', '0', featureNumber); //< is a Red Spider, 0 is a hedge
 		addFeature('\u003D', '0', featureNumber); //= is a Yellow Spider, 0 is a hedge
+		addFeature('\u003E', '0', featureNumber); //> is the exit, 0 is a hedge
 	}
 	
 	private void init(){
 		for (int row = 0; row < maze.length; row++){
 			for (int col = 0; col < maze[row].length; col++){
-				maze[row][col] = '0'; //Index 0 is a hedge...
+				maze[row][col] = new Node(row,col);
+				
 			}
 		}
 	}
@@ -90,5 +97,14 @@ public class Maze {
 			sb.append("\n");
 		}
 		return sb.toString();
+	}
+	
+	//Method to set the goal node
+	public void setGoalNode() {
+		Random generator = new Random();
+		int randRow = generator.nextInt(maze.length);
+		int randCol = generator.nextInt(maze[0].length);
+		maze[randRow][randCol].setGoalNode(true);
+		goal = maze[randRow][randCol];
 	}
 }
