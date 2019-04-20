@@ -4,6 +4,9 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
+import ie.gmit.sw.ai.maze.MazeGenerator;
+import ie.gmit.sw.ai.maze.MazeGeneratorFactory;
+import ie.gmit.sw.ai.maze.MazeView;
 import ie.gmit.sw.ai.maze.Node;
 import ie.gmit.sw.ai.traversers.*;
 
@@ -11,11 +14,15 @@ import java.util.Random;
 public class GameRunner implements KeyListener{
 	private static final int MAZE_DIMENSION = 100;
 	private static final int IMAGE_COUNT = 14;
+	
 	private ControlledSprite player;
+	
 	private GameView view;
 	private Maze model;
+	
 	private int currentRow;
 	private int currentCol;
+	
 	private Random rand = new Random(); //used to generate a random number
 	
 	//Player info
@@ -29,8 +36,14 @@ public class GameRunner implements KeyListener{
 	private Node goal;
 	
 	public GameRunner() throws Exception{
-		model = new Maze(MAZE_DIMENSION);
-    	view = new GameView(model);
+		//MazeGeneratorFactory factory = MazeGeneratorFactory.getInstance();
+		//MazeGenerator generator = factory.getMazeGenerator(MazeGenerator.GeneratorAlgorithm.RecursiveBacktracker, MAZE_DIMENSION, MAZE_DIMENSION);
+		
+		Maze m = new Maze(MAZE_DIMENSION, MAZE_DIMENSION);
+		// goal = model[10][10];
+
+		maze = m.getMaze();
+		view = new GameView(maze, goal);
     	
     	Sprite[] sprites = getSprites();
     	view.setSprites(sprites);
@@ -62,7 +75,7 @@ public class GameRunner implements KeyListener{
 	private void placePlayer(){   	
     	currentRow = (int) (MAZE_DIMENSION * Math.random());
     	currentCol = (int) (MAZE_DIMENSION * Math.random());
-    	model.set(currentRow, currentCol, '5'); //Player is at index 5
+    	maze[currentRow][currentCol].setState('5'); //Player is at index 5
     	updateView(); 		
 	}
 	

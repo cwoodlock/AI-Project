@@ -11,12 +11,21 @@ public class Node {
 	private int row = -1;
 	private int col = -1;
 	private int distance;
+	private char state;
 	
 	public Node(int row, int col) {
 		this.row = row;
 		this.col = col;
 	}
+	
+	public char getState() {
+		return state;
+	}
 
+	public void setState(char state) {
+		this.state = state;
+	}
+	
 	public int getRow() {
 		return row;
 	}
