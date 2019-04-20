@@ -12,7 +12,6 @@ public class GameRunner implements KeyListener{
 	private static final int MAZE_DIMENSION = 100;
 	private static final int IMAGE_COUNT = 14;
 	private ControlledSprite player;
-	
 	private GameView view;
 	private Maze model;
 	private int currentRow;
@@ -213,7 +212,30 @@ public class GameRunner implements KeyListener{
 		}
 	}
 	
-	
+	private Sprite[] getSprites() throws Exception{
+		//Read in the images from the resources directory as sprites. Note that each
+		//sprite will be referenced by its index in the array, e.g. a 3 implies a Bomb...
+		//Ideally, the array should dynamically created from the images... 
+		
+		player = new ControlledSprite("Main Player", 3, "resources/images/player/d1.png", "resources/images/player/d2.png", "resources/images/player/d3.png", "resources/images/player/l1.png", "resources/images/player/l2.png", "resources/images/player/l3.png", "resources/images/player/r1.png", "resources/images/player/r2.png", "resources/images/player/r3.png");
+		
+		Sprite[] sprites = new Sprite[IMAGE_COUNT];
+		sprites[0] = new Sprite("Hedge", 1, "resources/images/objects/hedge.png");
+		sprites[1] = new Sprite("Sword", 1, "resources/images/objects/sword.png");
+		sprites[2] = new Sprite("Help", 1, "resources/images/objects/help.png");
+		sprites[3] = new Sprite("Bomb", 1, "resources/images/objects/bomb.png");
+		sprites[4] = new Sprite("Hydrogen Bomb", 1, "resources/images/objects/h_bomb.png");
+		sprites[5] = player;
+		sprites[6] = new Sprite("Black Spider", 2, "resources/images/spiders/black_spider_1.png", "resources/images/spiders/black_spider_2.png");
+		sprites[7] = new Sprite("Blue Spider", 2, "resources/images/spiders/blue_spider_1.png", "resources/images/spiders/blue_spider_2.png");
+		sprites[8] = new Sprite("Brown Spider", 2, "resources/images/spiders/brown_spider_1.png", "resources/images/spiders/brown_spider_2.png");
+		sprites[9] = new Sprite("Green Spider", 2, "resources/images/spiders/green_spider_1.png", "resources/images/spiders/green_spider_2.png");
+		sprites[10] = new Sprite("Grey Spider", 2, "resources/images/spiders/grey_spider_1.png", "resources/images/spiders/grey_spider_2.png");
+		sprites[11] = new Sprite("Orange Spider", 2, "resources/images/spiders/orange_spider_1.png", "resources/images/spiders/orange_spider_2.png");
+		sprites[12] = new Sprite("Red Spider", 2, "resources/images/spiders/red_spider_1.png", "resources/images/spiders/red_spider_2.png");
+		sprites[13] = new Sprite("Yellow Spider", 2, "resources/images/spiders/yellow_spider_1.png", "resources/images/spiders/yellow_spider_2.png");
+		return sprites;
+	}
 	
 	private boolean isAlive(int health) {
 		if(health > 0) {
