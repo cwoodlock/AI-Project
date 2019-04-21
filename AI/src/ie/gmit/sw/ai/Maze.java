@@ -1,10 +1,11 @@
 package ie.gmit.sw.ai;
 
+import ie.gmit.sw.ai.maze.Node;
 
 public class Maze {
-	private char[][] maze; //An array does not lend itself to the type of mazge generation alogs we use in the labs. There are no "walls" to carve...
+	private Node[][] maze; //An array does not lend itself to the type of mazge generation alogs we use in the labs. There are no "walls" to carve...
 	public Maze(int dimension){
-		maze = new char[dimension][dimension];
+		maze = new Node[dimension][dimension];
 		init();
 		buildMaze();
 		
@@ -28,7 +29,7 @@ public class Maze {
 	private void init(){
 		for (int row = 0; row < maze.length; row++){
 			for (int col = 0; col < maze[row].length; col++){
-				maze[row][col] = '0'; //Index 0 is a hedge...
+				maze[row][col].setState('0');; //Index 0 is a hedge...
 			}
 		}
 	}
@@ -39,8 +40,8 @@ public class Maze {
 			int row = (int) (maze.length * Math.random());
 			int col = (int) (maze[0].length * Math.random());
 			
-			if (maze[row][col] == replace){
-				maze[row][col] = feature;
+			if (maze[row][col].getState() == replace){
+				maze[row][col].setState(feature);
 				counter++;
 			}
 		}
@@ -52,29 +53,29 @@ public class Maze {
 				int num = (int) (Math.random() * 10);
 				if (isRoom(row, col)) continue;
 				if (num > 5 && col + 1 < maze[row].length - 1){
-					maze[row][col + 1] = '\u0020'; //\u0020 = 0x20 = 32 (base 10) = SPACE
+					maze[row][col + 1].setState(' ');; //\u0020 = 0x20 = 32 (base 10) = SPACE
 				}else {
-					if (row + 1 < maze.length - 1) maze[row + 1][col] = '\u0020';
+					if (row + 1 < maze.length - 1) maze[row + 1][col].setState('\u0020');;
 				}
 			}
 		}	
 	}
 	
 	private boolean isRoom(int row, int col){ //Flaky and only works half the time, but reduces the number of rooms
-		return row > 1 && maze[row - 1][col] == '\u0020' && maze[row - 1][col + 1] == '\u0020';
+		return row > 1 && maze[row - 1][col].getState() == '\u0020' && maze[row - 1][col + 1].getState() == '\u0020';
 	}
 	
-	public char[][] getMaze(){
+	public Node[][] getMaze(){
 		return this.maze;
 	}
 	
-	public char get(int row, int col){
-		return this.maze[row][col];
-	}
+	//public char get(int row, int col){
+	//	return this.maze[row][col];
+	//}
 	
-	public void set(int row, int col, char c){
-		this.maze[row][col] = c;
-	}
+	//public void set(int row, int col, char c){
+	//	this.maze[row][col] = c;
+	//}
 	
 	public int size(){
 		return this.maze.length;

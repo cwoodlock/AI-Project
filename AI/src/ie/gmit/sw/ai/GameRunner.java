@@ -39,8 +39,7 @@ public class GameRunner implements KeyListener{
 		//MazeGeneratorFactory factory = MazeGeneratorFactory.getInstance();
 		//MazeGenerator generator = factory.getMazeGenerator(MazeGenerator.GeneratorAlgorithm.RecursiveBacktracker, MAZE_DIMENSION, MAZE_DIMENSION);
 		
-		Maze m = new Maze(MAZE_DIMENSION, MAZE_DIMENSION);
-		// goal = model[10][10];
+		Maze m = new Maze(MAZE_DIMENSION);
 
 		maze = m.getMaze();
 		view = new GameView(maze, goal);
