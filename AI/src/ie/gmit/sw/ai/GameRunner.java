@@ -10,6 +10,9 @@ import ie.gmit.sw.ai.maze.MazeView;
 import ie.gmit.sw.ai.maze.Node;
 import ie.gmit.sw.ai.traversers.*;
 import net.sourceforge.jFuzzyLogic.FIS;
+import net.sourceforge.jFuzzyLogic.FunctionBlock;
+import net.sourceforge.jFuzzyLogic.plot.JFuzzyChart;
+import net.sourceforge.jFuzzyLogic.rule.Variable;
 
 import java.util.Random;
 public class GameRunner implements KeyListener{
@@ -26,11 +29,6 @@ public class GameRunner implements KeyListener{
 	
 	private Random rand = new Random(); //used to generate a random number
 	
-	//Player info
-	private int maxHealth = 20;
-	private int maxStrength = 10;
-	private int currentHealth = 20;
-	private int currentStrength = 5;
 	
 	//Node info
 	private Node[][] maze;
@@ -49,9 +47,19 @@ public class GameRunner implements KeyListener{
     	Sprite[] sprites = getSprites();
     	view.setSprites(sprites);
     	
+    	init();
+    	
     	placePlayer();
     	
-    	Dimension d = new Dimension(GameView.DEFAULT_VIEW_SIZE, GameView.DEFAULT_VIEW_SIZE);
+    	
+        
+        Traversator t = new BestFirstTraversator(goal);
+        
+        t.traverse(maze, maze[0][0]);
+	}
+	
+	private void init() {
+		Dimension d = new Dimension(GameView.DEFAULT_VIEW_SIZE, GameView.DEFAULT_VIEW_SIZE);
     	view.setPreferredSize(d);
     	view.setMinimumSize(d);
     	view.setMaximumSize(d);
@@ -65,10 +73,6 @@ public class GameRunner implements KeyListener{
         f.setLocation(100,100);
         f.pack();
         f.setVisible(true);
-        
-        Traversator t = new BestFirstTraversator(goal);
-        
-        t.traverse(maze, maze[0][0]);
 	}
 	
 	
@@ -112,8 +116,6 @@ public class GameRunner implements KeyListener{
         	view.toggleZoom(); //Toggle zoom in and out
         }else if(e.getKeyCode() == KeyEvent.VK_ESCAPE){
         	System.exit(0);	 //Exit the game
-        }else if(e.getKeyCode() == KeyEvent.VK_I) {
-        	JOptionPane.showMessageDialog(null, "Info: \n Current Health: " + currentHealth + "\n Current Strength: " + currentStrength);
         }else {
         	return;
         }
@@ -135,7 +137,47 @@ public class GameRunner implements KeyListener{
     		return;
     	}
     	
+    	FunctionBlock functionBlock = fis.getFunctionBlock("fight");
+    	Random random = new Random();
+    	Spider spider = maze[currentRow][currentCol].getSpider();
     	
+    	// PLAYER SCORE
+    	fis.setVariable("health", player.getHealth() / 10);
+    	int luck = random.nextInt(10);
+    	fis.setVariable("luck", luck);
+    	// Evaluate
+    	fis.evaluate();
+    	// Show output variable's chart
+    	Variable outcome = functionBlock.getVariable("damage");
+    	int damage = (int) outcome.getValue();
+    	System.out.println("Player dealt " + damage);
+    	spider.decHealth(damage);
+    	// JFuzzyChart.get().chart(outcome, outcome.getDefuzzifier(),
+    	// true);// Prints last chart
+
+    	// ENEMY SCORE
+    	fis.setVariable("health", spider.getHealth() / 10);
+    	luck = random.nextInt(10);
+    	fis.setVariable("luck", luck);
+    	// Evaluate
+    	fis.evaluate();
+    	// Show output variable's chart
+    	outcome = functionBlock.getVariable("damage");
+    	damage = (int) outcome.getValue();
+    	System.out.println("Enemy dealt " + damage);
+    	player.decHealth(damage);
+
+    	// AFTER FIGHT
+    	System.out.println("Player health: " + player.getHealth());
+    	System.out.println("Enemy health: " + spider.getHealth());
+    				
+    	if (player.getHealth() <= 0) {
+    		player.kill();
+    	}
+    				
+    	if (spider.getHealth() <= 0) {
+    		spider.kill();
+    	}
 	}
 
 
@@ -148,102 +190,12 @@ public class GameRunner implements KeyListener{
 			maze[currentRow][currentCol].setState(' ');
 			maze[row][col].setState('5');
 			return true;
-		}else{
-			{//Adapted from https://www.mkyong.com/swing/java-swing-how-to-make-a-confirmation-dialog/
-			 //Adapted from https://stackoverflow.com/questions/5887709/getting-random-numbers-in-java
-				if (JOptionPane.showConfirmDialog(null, "Would you like to interact with this item?", "WARNING",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
-	        	{
-	        	    // If user clicks yes and it is a question mark 
-					if(row <= model.size() - 1 && col <= model.size() - 1 && maze[row][col].getState() == '\u0032')
-					{
-						int n = rand.nextInt(2);
-						if(n == 0) {
-							JOptionPane.showMessageDialog(null, "Press Esc to exit the game");
-							maze[row][col].setState('0');;
-						}else if(n== 1) {
-							JOptionPane.showMessageDialog(null, "Use Arrow buttons to navigate");
-							maze[row][col].setState('0');;
-						}else if(n == 2) {
-							JOptionPane.showMessageDialog(null, "Press Z to zoom the map");
-							maze[row][col].setState('0');;
-						}
-					
-					//if it is a sword
-					}else if(row <= model.size() - 1 && col <= model.size() - 1 && maze[row][col].getState() == '\u0031') {
-						JOptionPane.showMessageDialog(null, "Your attack has increased!");
-						if(currentStrength < maxStrength) {
-							currentStrength++;
-						}
-						maze[row][col].setState('0');;
-						
-					//if it is a bomb	
-					}else if(row <= model.size() - 1 && col <= model.size() - 1 && maze[row][col].getState() == '\u0033'){
-						JOptionPane.showMessageDialog(null, "Boom");
-						currentHealth -= 5;
-						isAlive(currentHealth);
-						maze[row][col].setState('0');;
-						
-					//If it is a H-Bomb	
-					}else if(row <= model.size() - 1 && col <= model.size() - 1 && maze[row][col].getState() == '\u0034') {
-						JOptionPane.showMessageDialog(null, "BOOM!");
-						currentHealth -= 10;
-						isAlive(currentHealth);
-						maze[row][col].setState('0');;
-						
-						//If it is a Black Spider	
-					}else if(row <= model.size() - 1 && col <= model.size() - 1 && maze[row][col].getState() == '\u0036') {
-						JOptionPane.showMessageDialog(null, "Black Spider!");
-						maze[row][col].setState('\u0020');
-						
-						//If it is a Blue Spider
-					}else if(row <= model.size() - 1 && col <= model.size() - 1 && maze[row][col].getState() == '\u0037') {
-						JOptionPane.showMessageDialog(null, "Blue Spider!");
-						maze[row][col].setState('\u0020');
-						
-						//If it is a Brown Spider	
-					}else if(row <= model.size() - 1 && col <= model.size() - 1 && maze[row][col].getState() == '\u0038') {
-						JOptionPane.showMessageDialog(null, "Brown Spider!");
-						maze[row][col].setState('\u0020');
-						
-						//If it is a Green Spider	
-					}else if(row <= model.size() - 1 && col <= model.size() - 1 && maze[row][col].getState() == '\u0039') {
-						JOptionPane.showMessageDialog(null, "Green Spider!");
-						maze[row][col].setState('\u0020');
-						
-						//If it is a Grey Spider	
-					}else if(row <= model.size() - 1 && col <= model.size() - 1 && maze[row][col].getState() == '\u003A') {
-						JOptionPane.showMessageDialog(null, "Grey Spider!");
-						maze[row][col].setState('\u0020');
-						
-						//If it is a Orange	Spider
-					}else if(row <= model.size() - 1 && col <= model.size() - 1 && maze[row][col].getState() == '\u003B') {
-						JOptionPane.showMessageDialog(null, "Orange Spider!");
-						maze[row][col].setState('\u0020');
-						
-						//If it is a Red Spider	
-					}else if(row <= model.size() - 1 && col <= model.size() - 1 && maze[row][col].getState() == '\u003C') {
-						JOptionPane.showMessageDialog(null, "Red Spider!");
-						maze[row][col].setState('\u0020');
-						
-						//If it is a Yellow Spider	
-					}else if(row <= model.size() - 1 && col <= model.size() - 1 && maze[row][col].getState() == '\u003D') {
-						JOptionPane.showMessageDialog(null, "Yellow Spider!");
-						maze[row][col].setState('\u0020');
-						
-					}else{
-						// removes block in front of the character
-						maze[row][col].setState('\u0020');
-					    JOptionPane.showMessageDialog(null, "Item Destroyed");
-					}
-	        	}else{
-	        	    // If user clicks no do nothing
-	        	}
-			}
+		}else {	
 			return false; //Can't move
-
-
+			}
+			
 		}
-	}
+	
 	
 	private Sprite[] getSprites() throws Exception{
 		//Read in the images from the resources directory as sprites. Note that each

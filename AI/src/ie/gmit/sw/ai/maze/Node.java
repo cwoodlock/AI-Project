@@ -1,6 +1,8 @@
 package ie.gmit.sw.ai.maze;
 
 import java.awt.Color;
+
+import ie.gmit.sw.ai.Spider;
 public class Node {
 	public enum Direction {North, South, East, West};
 	private Node parent;
@@ -12,7 +14,16 @@ public class Node {
 	private int col = -1;
 	private int distance;
 	private char state;
+	private Spider spider = null;
 	
+	public Spider getSpider() {
+		return spider;
+	}
+
+	public void setSpider(Spider spider) {
+		this.spider = spider;
+	}
+
 	public Node(int row, int col) {
 		this.row = row;
 		this.col = col;

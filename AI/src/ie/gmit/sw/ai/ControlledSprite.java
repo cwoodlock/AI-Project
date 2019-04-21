@@ -1,10 +1,16 @@
 package ie.gmit.sw.ai;
 
 import javax.imageio.*;
+import javax.swing.JOptionPane;
+
 import java.awt.image.*;
 public class ControlledSprite extends Sprite{	
+	
+	private int health;
+	
 	public ControlledSprite(String name, int frames, String... images) throws Exception{
 		super(name, frames, images);
+		health = 100;
 	}
 	
 	public void setDirection(Direction d){
@@ -20,5 +26,26 @@ public class ControlledSprite extends Sprite{
 		default:
 			break; //Ignore...
 		}		
+	}
+
+	public int getHealth() {
+		return health;
+	}
+	
+	public void setHealth(int health) {
+		this.health = health;
+	}
+	
+	public void incHealth(int incAmount) {
+		health += incAmount;
+	}
+	
+	public void decHealth(int decAmount) {
+		health -= decAmount;
+	}
+	
+	public void kill(){
+		JOptionPane.showMessageDialog(null, "You Died! Game Over!");
+		System.exit(0);
 	}
 }
