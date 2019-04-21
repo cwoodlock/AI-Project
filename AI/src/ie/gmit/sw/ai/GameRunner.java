@@ -41,6 +41,7 @@ public class GameRunner implements KeyListener{
 		
 		Maze m = new Maze(MAZE_DIMENSION);
 
+
 		maze = m.getMaze();
 		view = new GameView(maze, goal);
     	
@@ -123,9 +124,9 @@ public class GameRunner implements KeyListener{
    
 	private boolean isValidMove(int row, int col){
 		
-		if (row <= model.size() - 1 && col <= model.size() - 1 && model.get(row, col) == ' '){
-			model.set(currentRow, currentCol, '\u0020'); // u0020 is a blank space, replace last position with blank space
-			model.set(row, col, '5');
+		if (row <= maze.length - 1 && col <= maze.length - 1 && maze[row][col].getState() == ' '){
+			maze[currentRow][currentCol].setState(' ');
+			maze[row][col].setState('5');
 			return true;
 		}else{
 			{//Adapted from https://www.mkyong.com/swing/java-swing-how-to-make-a-confirmation-dialog/
@@ -133,85 +134,85 @@ public class GameRunner implements KeyListener{
 				if (JOptionPane.showConfirmDialog(null, "Would you like to interact with this item?", "WARNING",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
 	        	{
 	        	    // If user clicks yes and it is a question mark 
-					if(row <= model.size() - 1 && col <= model.size() - 1 && model.get(row, col) == '\u0032')
+					if(row <= model.size() - 1 && col <= model.size() - 1 && maze[row][col].getState() == '\u0032')
 					{
 						int n = rand.nextInt(2);
 						if(n == 0) {
 							JOptionPane.showMessageDialog(null, "Press Esc to exit the game");
-							model.set(row, col, '0');
+							maze[row][col].setState('0');;
 						}else if(n== 1) {
 							JOptionPane.showMessageDialog(null, "Use Arrow buttons to navigate");
-							model.set(row, col, '0');
+							maze[row][col].setState('0');;
 						}else if(n == 2) {
 							JOptionPane.showMessageDialog(null, "Press Z to zoom the map");
-							model.set(row, col, '0');
+							maze[row][col].setState('0');;
 						}
 					
 					//if it is a sword
-					}else if(row <= model.size() - 1 && col <= model.size() - 1 && model.get(row, col) == '\u0031') {
+					}else if(row <= model.size() - 1 && col <= model.size() - 1 && maze[row][col].getState() == '\u0031') {
 						JOptionPane.showMessageDialog(null, "Your attack has increased!");
 						if(currentStrength < maxStrength) {
 							currentStrength++;
 						}
-						model.set(row, col, '0');
+						maze[row][col].setState('0');;
 						
 					//if it is a bomb	
-					}else if(row <= model.size() - 1 && col <= model.size() - 1 && model.get(row, col) == '\u0033'){
+					}else if(row <= model.size() - 1 && col <= model.size() - 1 && maze[row][col].getState() == '\u0033'){
 						JOptionPane.showMessageDialog(null, "Boom");
 						currentHealth -= 5;
 						isAlive(currentHealth);
-						model.set(row, col, '0');
+						maze[row][col].setState('0');;
 						
 					//If it is a H-Bomb	
-					}else if(row <= model.size() - 1 && col <= model.size() - 1 && model.get(row, col) == '\u0034') {
+					}else if(row <= model.size() - 1 && col <= model.size() - 1 && maze[row][col].getState() == '\u0034') {
 						JOptionPane.showMessageDialog(null, "BOOM!");
 						currentHealth -= 10;
 						isAlive(currentHealth);
-						model.set(row, col, '0');
+						maze[row][col].setState('0');;
 						
 						//If it is a Black Spider	
-					}else if(row <= model.size() - 1 && col <= model.size() - 1 && model.get(row, col) == '\u0036') {
+					}else if(row <= model.size() - 1 && col <= model.size() - 1 && maze[row][col].getState() == '\u0036') {
 						JOptionPane.showMessageDialog(null, "Black Spider!");
-						model.set(row, col, '\u0020');
+						maze[row][col].setState('\u0020');
 						
 						//If it is a Blue Spider
-					}else if(row <= model.size() - 1 && col <= model.size() - 1 && model.get(row, col) == '\u0037') {
+					}else if(row <= model.size() - 1 && col <= model.size() - 1 && maze[row][col].getState() == '\u0037') {
 						JOptionPane.showMessageDialog(null, "Blue Spider!");
-						model.set(row, col, '\u0020');
+						maze[row][col].setState('\u0020');
 						
 						//If it is a Brown Spider	
-					}else if(row <= model.size() - 1 && col <= model.size() - 1 && model.get(row, col) == '\u0038') {
+					}else if(row <= model.size() - 1 && col <= model.size() - 1 && maze[row][col].getState() == '\u0038') {
 						JOptionPane.showMessageDialog(null, "Brown Spider!");
-						model.set(row, col, '\u0020');
+						maze[row][col].setState('\u0020');
 						
 						//If it is a Green Spider	
-					}else if(row <= model.size() - 1 && col <= model.size() - 1 && model.get(row, col) == '\u0039') {
+					}else if(row <= model.size() - 1 && col <= model.size() - 1 && maze[row][col].getState() == '\u0039') {
 						JOptionPane.showMessageDialog(null, "Green Spider!");
-						model.set(row, col, '\u0020');
+						maze[row][col].setState('\u0020');
 						
 						//If it is a Grey Spider	
-					}else if(row <= model.size() - 1 && col <= model.size() - 1 && model.get(row, col) == '\u003A') {
+					}else if(row <= model.size() - 1 && col <= model.size() - 1 && maze[row][col].getState() == '\u003A') {
 						JOptionPane.showMessageDialog(null, "Grey Spider!");
-						model.set(row, col, '\u0020');
+						maze[row][col].setState('\u0020');
 						
 						//If it is a Orange	Spider
-					}else if(row <= model.size() - 1 && col <= model.size() - 1 && model.get(row, col) == '\u003B') {
+					}else if(row <= model.size() - 1 && col <= model.size() - 1 && maze[row][col].getState() == '\u003B') {
 						JOptionPane.showMessageDialog(null, "Orange Spider!");
-						model.set(row, col, '\u0020');
+						maze[row][col].setState('\u0020');
 						
 						//If it is a Red Spider	
-					}else if(row <= model.size() - 1 && col <= model.size() - 1 && model.get(row, col) == '\u003C') {
+					}else if(row <= model.size() - 1 && col <= model.size() - 1 && maze[row][col].getState() == '\u003C') {
 						JOptionPane.showMessageDialog(null, "Red Spider!");
-						model.set(row, col, '\u0020');
+						maze[row][col].setState('\u0020');
 						
 						//If it is a Yellow Spider	
-					}else if(row <= model.size() - 1 && col <= model.size() - 1 && model.get(row, col) == '\u003D') {
+					}else if(row <= model.size() - 1 && col <= model.size() - 1 && maze[row][col].getState() == '\u003D') {
 						JOptionPane.showMessageDialog(null, "Yellow Spider!");
-						model.set(row, col, '\u0020');
+						maze[row][col].setState('\u0020');
 						
 					}else{
 						// removes block in front of the character
-						model.set(row, col, '\u0020');
+						maze[row][col].setState('\u0020');
 					    JOptionPane.showMessageDialog(null, "Item Destroyed");
 					}
 	        	}else{
