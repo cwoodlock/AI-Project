@@ -9,6 +9,7 @@ import ie.gmit.sw.ai.maze.MazeGeneratorFactory;
 import ie.gmit.sw.ai.maze.MazeView;
 import ie.gmit.sw.ai.maze.Node;
 import ie.gmit.sw.ai.traversers.*;
+import net.sourceforge.jFuzzyLogic.FIS;
 
 import java.util.Random;
 public class GameRunner implements KeyListener{
@@ -117,9 +118,20 @@ public class GameRunner implements KeyListener{
         	return;
         }
         
-        updateView();       
+        updateView();
+        
+        //Fuzzy logic for fight with enemy
+        fuzzyFight();
     }
-    public void keyReleased(KeyEvent e) {} //Ignore
+    private void fuzzyFight() {
+		// TODO Auto-generated method stub
+		//Load FCL file
+    	String fileName = "resources/fuzzy/fuzzy.fcl";
+    	FIS fis = FIS.load(fileName, true);
+	}
+
+
+	public void keyReleased(KeyEvent e) {} //Ignore
 	public void keyTyped(KeyEvent e) {} //Ignore
    
 	private boolean isValidMove(int row, int col){
