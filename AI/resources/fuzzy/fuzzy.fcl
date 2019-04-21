@@ -1,4 +1,4 @@
-FUNCTION_BLOCK fight
+FUNCTION_BLOCK fight	
 
 VAR_INPUT				// Define input variables
 	health : REAL;
@@ -9,21 +9,21 @@ VAR_OUTPUT				// Define output variable
 	result : REAL;
 END_VAR
 
-FUZZIFY health
-	TERM small := (0, 1) (4, 0) ; 
-	TERM medium := (1, 0) (4,1) (6,1) (9,0);
-	TERM large := (6, 0) (9, 1);
+FUZZIFY health			/
+	TERM poor := (0, 1) (4, 0) ; 
+	TERM good := (1, 0) (4,1) (6,1) (9,0);
+	TERM excellent := (6, 0) (9, 1);
 END_FUZZIFY
 
-FUZZIFY luck
+FUZZIFY luck			
 	TERM low := (0, 1) (1, 1) (3,0) ;
 	TERM high := (7,0) (9,1);
 END_FUZZIFY
 
-DEFUZZIFY damage			
-	TERM minimal := (0,0) (5,1) (10,0);
-	TERM nonCrit := (10,0) (15,1) (20,0);
-	TERM critical := (20,0) (25,1) (30,0);
+DEFUZZIFY result			
+	TERM low := (0,0) (5,1) (10,0);
+	TERM average := (10,0) (15,1) (20,0);
+	TERM high := (20,0) (25,1) (30,0);
 	METHOD : COG;		// Use 'Center Of Gravity' defuzzification method
 	DEFAULT := 0;		// Default value is 0 (if no rule activates defuzzifier)
 END_DEFUZZIFY
@@ -33,11 +33,9 @@ RULEBLOCK No1
 	ACT : MIN;			// Use 'min' activation method
 	ACCU : MAX;			// Use 'max' accumulation method
 
-	RULE 1 : IF health IS low OR health IS medium THEN damage IS minimal;
-	RULE 2 : IF health IS medium THEN damage IS nonCrit; 
-	RULE 3 : IF health IS large AND luck IS low THEN damage IS critical;
-	RULE 4 : IF health IS medium AND luck IS high THEN damage IS critical;
-	RULE 5 : IF health IS low AND luck IS high THEN damage IS nonCrit;
+	RULE 1 : IF health IS poor OR health IS good THEN result IS low;
+	RULE 2 : IF health IS good THEN result IS average; 
+	RULE 3 : IF health IS excellent AND luck IS low THEN result IS high;
 END_RULEBLOCK
 
 END_FUNCTION_BLOCK

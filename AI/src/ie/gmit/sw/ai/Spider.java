@@ -25,6 +25,8 @@ public class Spider {
 	private int spiderLevel = 0;
 	//Set the max number of spider types
 	public static int MAX_SPIDER_LEVEL = 4;
+	//How long the spiders will move
+	private long duration;
 	
 	//Constructor
 	public Spider(Node currentNode, Node goalNode, Node[][] globalNode, int spiderLevel) {
@@ -34,6 +36,7 @@ public class Spider {
 		this.globalNode = globalNode;
 		this.spiderLevel = spiderLevel;
 		health = 50;
+		duration = 1000;
 		
 		//create The traversers dependig on what level the sider is
 		createSpiderTraversers();
@@ -82,6 +85,16 @@ public class Spider {
 	public void move() {
 		
 	}
+
+	public long getDuration() {
+		return duration;
+	}
+
+	public void setDuration(long duration) {
+		this.duration = duration;
+	}
+	
+	
 	
 	
 	

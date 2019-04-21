@@ -171,6 +171,24 @@ public class Node {
 		return (Node[]) adjacents.toArray(new Node[adjacents.size()]);
 	}
 	
+	public void addPath(Direction direction) {
+		int index = 0;
+		if (paths == null){
+			paths = new Direction[index + 1];		
+		}else{
+			index = paths.length;
+			Direction[] temp = new Direction[index + 1];
+			for (int i = 0; i < paths.length; i++) temp[i] = paths[i];
+			paths = temp;
+		}
+		
+		paths[index] = direction;
+	}
+	
+	public Direction[] getPaths() {
+		return paths;
+	}
+	
 	public NodeType getType() {
 		return type;
 	}

@@ -20,6 +20,7 @@ public class GameRunner implements KeyListener{
 	private static final int IMAGE_COUNT = 14;
 	
 	private ControlledSprite player;
+	private SpiderControl spider;
 	
 	private GameView view;
 	private Maze model;
@@ -51,10 +52,13 @@ public class GameRunner implements KeyListener{
     	placePlayer();
     	
     	
-        
-        Traversator t = new BestFirstTraversator(goal);
-        
-        t.traverse(maze, maze[0][0]);
+    	spider = new SpiderControl(new Node(currentRow, currentCol), maze);
+    	spider.createSpiders();
+    	
+    	this.goal = m.getGoal();
+		Random random = new Random();
+		int help = random.nextInt(4);
+       
 	}
 	
 	private void init() {
@@ -126,57 +130,70 @@ public class GameRunner implements KeyListener{
     }
     private void fuzzyFight() {
 		// TODO Auto-generated method stub
-		//Load FCL file
-    	String fileName = "resources/fuzzy/fuzzy.fcl";
-    	FIS fis = FIS.load(fileName, true);
-    	
-    	//Error handling
-    	if(fis == null) {
-    		System.err.println("Error oading file: " + fileName);
-    		return;
-    	}
-    	
-    	FunctionBlock functionBlock = fis.getFunctionBlock("fight");
-    	Random random = new Random();
-    	Spider spider = maze[currentRow][currentCol].getSpider();
-    	
-    	// PLAYER SCORE
-    	fis.setVariable("health", player.getHealth() / 10);
-    	int luck = random.nextInt(10);
-    	fis.setVariable("luck", luck);
-    	// Evaluate
-    	fis.evaluate();
-    	// Show output variable's chart
-    	Variable outcome = functionBlock.getVariable("damage");
-    	int damage = (int) outcome.getValue();
-    	System.out.println("Player dealt " + damage);
-    	spider.decHealth(damage);
-    	// JFuzzyChart.get().chart(outcome, outcome.getDefuzzifier(),
-    	// true);// Prints last chart
+    	if (maze[currentRow][currentCol].isHasSpider()) {
+			// Load fcl
+			String fileName = "fcl/strenght.fcl";
+			FIS fis = FIS.load(fileName, true);
 
-    	// ENEMY SCORE
-    	fis.setVariable("health", spider.getHealth() / 10);
-    	luck = random.nextInt(10);
-    	fis.setVariable("luck", luck);
-    	// Evaluate
-    	fis.evaluate();
-    	// Show output variable's chart
-    	outcome = functionBlock.getVariable("damage");
-    	damage = (int) outcome.getValue();
-    	System.out.println("Enemy dealt " + damage);
-    	player.decHealth(damage);
+			// Error handling
+			if (fis == null) {
+				System.err.println("Can't load file: '" + fileName + "'");
+				return;
+			}
 
-    	// AFTER FIGHT
-    	System.out.println("Player health: " + player.getHealth());
-    	System.out.println("Enemy health: " + spider.getHealth());
-    				
-    	if (player.getHealth() <= 0) {
-    		player.kill();
-    	}
-    				
-    	if (spider.getHealth() <= 0) {
-    		spider.kill();
-    	}
+			FunctionBlock functionBlock = fis.getFunctionBlock("fight");
+			Random random = new Random();
+			Spider spider = maze[currentRow][currentCol].getSpider();
+
+			// PLAYER SCORE
+			fis.setVariable("health", player.getHealth() / 10);
+			//Generate and assign the luck value for the player
+			int luck = random.nextInt(10);
+			fis.setVariable("luck", luck);
+			
+			// Evaluate
+			fis.evaluate();
+			
+			// Show output variable's chart
+			Variable outcome = functionBlock.getVariable("result");
+			//Assign the outcome to a variable
+			int damage = (int) outcome.getValue();
+			//Print out damage dealt so user can see
+			System.out.println("Player dealt " + damage);
+			//Decrease spiders health
+			spider.decHealth(damage);
+
+			// ENEMY SCORE
+			fis.setVariable("health", spider.getHealth() / 10);
+			//Generate and assign the luck value for the enemy
+			luck = random.nextInt(10);
+			fis.setVariable("luck", luck);
+			
+			// Evaluate
+			fis.evaluate();
+			
+			// Show output variable's chart
+			outcome = functionBlock.getVariable("result");
+			//Assign the outcome to a variable
+			damage = (int) outcome.getValue();
+			//Print out damage delt so user can see
+			System.out.println("Enemy dealt " + damage);
+			//Decrease players health
+			player.decHealth(damage);
+
+			// AFTER FIGHT
+			System.out.println("Player health: " + player.getHealth());
+			System.out.println("Enemy health: " + spider.getHealth());
+			
+			//Run checks to see if player or spider are dead
+			if (player.getHealth() <= 0) {
+				player.kill();	
+			}
+			
+			if (spider.getHealth() <= 0) {
+				spider.kill();
+			}
+		}
 	}
 
 
@@ -219,16 +236,6 @@ public class GameRunner implements KeyListener{
 		sprites[12] = new Sprite("Red Spider", 2, "resources/images/spiders/red_spider_1.png", "resources/images/spiders/red_spider_2.png");
 		sprites[13] = new Sprite("Yellow Spider", 2, "resources/images/spiders/yellow_spider_1.png", "resources/images/spiders/yellow_spider_2.png");
 		return sprites;
-	}
-	
-	private boolean isAlive(int health) {
-		if(health > 0) {
-			return true;
-		} else {
-			JOptionPane.showMessageDialog(null, "You Died! Game Over!");
-			System.exit(0);
-			return false;
-		}
 	}
 	
 	public static void main(String[] args) throws Exception{

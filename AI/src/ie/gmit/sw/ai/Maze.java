@@ -1,9 +1,13 @@
 package ie.gmit.sw.ai;
 
+import java.util.Random;
+
 import ie.gmit.sw.ai.maze.Node;
 
 public class Maze {
 	private Node[][] maze; //An array does not lend itself to the type of mazge generation alogs we use in the labs. There are no "walls" to carve...
+	private Node goal;
+	
 	public Maze(int dimension){
 		maze = new Node[dimension][dimension];
 		init();
@@ -65,7 +69,23 @@ public class Maze {
 	private boolean isRoom(int row, int col){ //Flaky and only works half the time, but reduces the number of rooms
 		return row > 1 && maze[row - 1][col].getState() == '\u0020' && maze[row - 1][col + 1].getState() == '\u0020';
 	}
+
 	
+	
+	public Node getGoal() {
+		return goal;
+	}
+
+	public void setGoal(Node goal) {
+		Random generator = new Random();
+		int randRow = generator.nextInt(maze.length - 4) + 2;
+		int randCol = generator.nextInt(maze[0].length - 4) + 2;
+		
+		maze[randRow][randCol].setGoalNode(true);
+		goal = maze[randRow][randCol];
+		maze[randRow][randCol].setState('G');
+	}
+
 	public Node[][] getMaze(){
 		return this.maze;
 	}
