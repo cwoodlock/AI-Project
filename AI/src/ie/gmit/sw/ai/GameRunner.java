@@ -128,6 +128,14 @@ public class GameRunner implements KeyListener{
 		//Load FCL file
     	String fileName = "resources/fuzzy/fuzzy.fcl";
     	FIS fis = FIS.load(fileName, true);
+    	
+    	//Error handling
+    	if(fis == null) {
+    		System.err.println("Error oading file: " + fileName);
+    		return;
+    	}
+    	
+    	
 	}
 
 
