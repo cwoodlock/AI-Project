@@ -80,7 +80,7 @@ public class Spider {
 	}
 	
 	public void move() {
-		newNode = traversator.
+		
 	}
 	
 	
