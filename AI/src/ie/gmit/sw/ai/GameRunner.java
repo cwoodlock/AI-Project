@@ -16,20 +16,28 @@ import net.sourceforge.jFuzzyLogic.rule.Variable;
 
 import java.util.Random;
 public class GameRunner implements KeyListener{
+	//Set maze size
 	private static final int MAZE_DIMENSION = 100;
+	//set the amount of images to be read in
 	private static final int IMAGE_COUNT = 17;
 	
+	//create player
 	private ControlledSprite player;
+	//create spider
 	private SpiderControl spider;
 	
+	//create game view
 	private GameView view;
+	//create model of maze
 	private Maze model;
 	
+	//current row and column
 	private int currentRow;
 	private int currentCol;
 	
 	private Random rand = new Random(); //used to generate a random number
 	
+	//Check if game is running
 	private boolean gameRunning = true;
 	
 	//Node info
@@ -40,31 +48,37 @@ public class GameRunner implements KeyListener{
 	private int helpLv = 0;
 	
 	public GameRunner() throws Exception{
-		//MazeGeneratorFactory factory = MazeGeneratorFactory.getInstance();
-		//MazeGenerator generator = factory.getMazeGenerator(MazeGenerator.GeneratorAlgorithm.RecursiveBacktracker, MAZE_DIMENSION, MAZE_DIMENSION);
 		
+		//Create maze
 		Maze m = new Maze(MAZE_DIMENSION);
 
-
+		//assign maze to maze variable
 		maze = m.getMaze();
+		//assign new game view
 		view = new GameView(maze, goal);
     	
+		//create an array of sprites containing all the images
     	Sprite[] sprites = getSprites();
     	view.setSprites(sprites);
+    	//All the jpanel stuff will be launched here
     	init();
     	
+    	//place player within game
     	placePlayer();
     	
-    	
+    	//create spider
     	spider = new SpiderControl(new Node(currentRow, currentCol), maze);
     	spider.createSpiders();
     	
+    	//get the goal node
     	this.goal = m.getGoal();
-		Random random = new Random();
-		helpLv = random.nextInt(4);
+		
+    	//Set the level for the help markers this will determine the traverser used
+		helpLv = rand.nextInt(4);
        
 	}
 	
+	//initialise all of the jpanel related stuff for the game and maze
 	private void init() {
 		Dimension d = new Dimension(GameView.DEFAULT_VIEW_SIZE, GameView.DEFAULT_VIEW_SIZE);
     	view.setPreferredSize(d);
@@ -149,7 +163,7 @@ public class GameRunner implements KeyListener{
 	}
 
 	private void fuzzyFight() {
-		// TODO Auto-generated method stub
+		// if the current location equals a spider do this
     	if (maze[currentRow][currentCol].getState() == '\u0036') {
 			// Load fcl
 			String fileName = "resources/fuzzy/fuzzy.fcl";
@@ -160,9 +174,11 @@ public class GameRunner implements KeyListener{
 				System.err.println("Can't load file: " + fileName);
 				return;
 			}
-
+			
+			//Get access to the function block you want to use
 			FunctionBlock functionBlock = fis.getFunctionBlock("fight");
 			Random random = new Random();
+			//Get the current spider
 			Spider spider = maze[currentRow][currentCol].getSpider();
 
 			// PLAYER SCORE
@@ -222,7 +238,7 @@ public class GameRunner implements KeyListener{
 	public void keyTyped(KeyEvent e) {} //Ignore
    
 	private boolean isValidMove(int row, int col){
-		
+		//This allows the player to pick up the various items that are scatterend arounf the maze
 		if (row <= maze.length - 1 && col <= maze[row].length - 1 && maze[row][col].getState() == '\u0020'
 				|| maze[row][col].getState() == '\u0032' 
 				|| maze[row][col].getState() == '\u0033' 
@@ -232,7 +248,8 @@ public class GameRunner implements KeyListener{
 			
 					maze[currentRow][currentCol].setVisited(true);
 					maze[currentRow][currentCol].setState('\u0020');
-					maze[row][col].setState('\u0036');
+					//This should load the player model but for some reason ti does not
+					maze[row][col].setState('5');
 
 			return true;
 		}else {	

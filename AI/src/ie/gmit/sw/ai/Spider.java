@@ -89,7 +89,7 @@ public class Spider extends TimerTask{
 	//Get the spider moving 
 	public void move() {
 		//This needs to get the current positon 
-		Node pathNode = traversator.getPosition();
+		Node newNode = traversator.getPosition();
 		if (newNode != null) {
 			// set current node to new node
 			globalNode[currentNode.getRow()][currentNode.getCol()].setHasSpider(false);

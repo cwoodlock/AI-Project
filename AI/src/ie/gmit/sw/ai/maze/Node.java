@@ -5,6 +5,7 @@ import java.awt.Color;
 import ie.gmit.sw.ai.Help;
 import ie.gmit.sw.ai.Spider;
 public class Node {
+	//Variables
 	public enum NodeType {Wall, Passage};
 	public enum Direction {North, South, East, West, None};
 	private static final int MAX_EXITS = 4;
@@ -30,6 +31,7 @@ public class Node {
 	private boolean hasSpider = false;
 	private boolean pathToGoal = false;
 	
+	//Getters and setters
 	public boolean isPathToGoal() {
 		return pathToGoal;
 	}
@@ -201,7 +203,7 @@ public class Node {
 		return direction;
 	}
 
-	public void setPassage(Direction direction) {
+	public void setDirection(Direction direction) {
 		this.direction = direction;
 	}
 
