@@ -1,5 +1,7 @@
 package ie.gmit.sw.ai;
 
+import java.util.TimerTask;
+
 import ie.gmit.sw.ai.maze.Node;
 import ie.gmit.sw.ai.traversers.BeamTraversator;
 import ie.gmit.sw.ai.traversers.BestFirstTraversator;
@@ -8,7 +10,7 @@ import ie.gmit.sw.ai.traversers.RandomWalk;
 import ie.gmit.sw.ai.traversers.RecursiveDFSTraversator;
 import ie.gmit.sw.ai.traversers.Traversator;
 
-public class Spider {
+public class Spider extends TimerTask{
 	//Current node to pass into traverser
 	private Node currentNode;
 	private Node newNode;
@@ -83,8 +85,27 @@ public class Spider {
 	}
 	
 	public void move() {
-		
+		//This needs to get the current positon 
+		Node pathNode = null;
+		if (newNode != null) {
+			// set current node to new node
+			globalNode[currentNode.getRow()][currentNode.getCol()].setHasSpider(false);
+			globalNode[currentNode.getRow()][currentNode.getCol()].setSpider(null);
+
+			globalNode[newNode.getRow()][newNode.getCol()].setHasSpider(true);
+			globalNode[newNode.getRow()][newNode.getCol()].setSpider(this);
+
+		// set new node to blank
+		currentNode = newNode;
+		newNode = null;
+
+//					System.out.println("New Pos: row: " + currentNode.getRow() + ",col: " + currentNode.getCol());
+		} else {
+			System.out.println("No positions to pop.");
+			createSpiderTraversers();
+		}
 	}
+	
 
 	public long getDuration() {
 		return duration;
@@ -93,9 +114,11 @@ public class Spider {
 	public void setDuration(long duration) {
 		this.duration = duration;
 	}
-	
-	
-	
-	
+
+	@Override
+	public void run() {
+		move();
+		
+	}
 	
 }

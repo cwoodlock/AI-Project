@@ -17,35 +17,38 @@ public class Help {
 	//Maze represented by a node array
 	private Node[][] globalNode;
 	
+	//Get access to the traversers
 	private Traversator traversator;
 	
 	//Used to determine what type of traverser the siders will use
-	private int bookLevel = 0;
-	//Set the max number of spider types
-	public static int MAX_BOOK_LEVEL = 4;
+	private int helpLevel = 0;
+	//Set the max level for the help
+	public static int MAX_HELP_LEVEL = 3;
 	//Set the maximum length of a path that could be painted
 	public static int MAX_PATH = 20;
 	
-	public Help(Node currentNode, Node goalNode, Node[][] globalNode, int bookLevel) {
+	//Constructor for the help
+	public Help(Node currentNode, Node goalNode, Node[][] globalNode, int helpLevel) {
 		super();
 		this.currentNode = currentNode;
 		this.goalNode = goalNode;
 		this.globalNode = globalNode;
-		this.bookLevel = bookLevel;
+		this.helpLevel = helpLevel % MAX_HELP_LEVEL;
 		
+		//Create the traversers
 		createBookTraversers();
 	}
 
 	private void createBookTraversers() {
 		// TODO Auto-generated method stub
 		//create different book traversers depending on their level higher the level the bette the traverser
-				if(bookLevel == 0) {
+				if(helpLevel == 0) {
 					traversator = new RecursiveDFSTraversator();
-				}else if(bookLevel == 1) {
+				}else if(helpLevel == 1) {
 					traversator = new BruteForceTraversator(true);
-				}else if(bookLevel == 2) {
+				}else if(helpLevel == 2) {
 					traversator = new SteepestAscentHillClimbingTraversator(goalNode);
-				}else if(bookLevel == 3) {
+				}else if(helpLevel == 3) {
 					traversator = new IDAStarTraversator(goalNode);
 				}else {
 					return;

@@ -17,7 +17,7 @@ import net.sourceforge.jFuzzyLogic.rule.Variable;
 import java.util.Random;
 public class GameRunner implements KeyListener{
 	private static final int MAZE_DIMENSION = 100;
-	private static final int IMAGE_COUNT = 14;
+	private static final int IMAGE_COUNT = 17;
 	
 	private ControlledSprite player;
 	private SpiderControl spider;
@@ -235,6 +235,9 @@ public class GameRunner implements KeyListener{
 		sprites[11] = new Sprite("Orange Spider", 2, "resources/images/spiders/orange_spider_1.png", "resources/images/spiders/orange_spider_2.png");
 		sprites[12] = new Sprite("Red Spider", 2, "resources/images/spiders/red_spider_1.png", "resources/images/spiders/red_spider_2.png");
 		sprites[13] = new Sprite("Yellow Spider", 2, "resources/images/spiders/yellow_spider_1.png", "resources/images/spiders/yellow_spider_2.png");
+		sprites[14] = new Sprite("Path", 1, "resources/images/objects/Path.png");
+		sprites[15] = new Sprite("Exit", 1, "resources/images/objects/exit.png");
+		sprites[16] = new Sprite("Bread", 1, "resources/images/objects/breadcrumbs.png");
 		return sprites;
 	}
 	
