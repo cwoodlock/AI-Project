@@ -1,14 +1,18 @@
 package ie.gmit.sw.ai.traversers;
 
+import java.util.LinkedList;
+
 import ie.gmit.sw.ai.maze.*;
 public class RecursiveDFSTraversator implements Traversator{
 	private Node[][] maze;
 	private boolean keepRunning = true;
 	private long time = System.currentTimeMillis();
 	private int visitCount = 0;
+	private LinkedList<Node> positions;
 	
 	public void traverse(Node[][] maze, Node node) {
 		this.maze = maze;
+		positions = new LinkedList<Node>();
 		dfs(node);
 	}
 	
@@ -37,6 +41,15 @@ public class RecursiveDFSTraversator implements Traversator{
 				children[i].setParent(node);
 				dfs(children[i]);
 			}
+		}
+	}
+
+	@Override
+	public Node getPosition() {
+		if (!positions.isEmpty()) {
+			return positions.pop();
+		} else{
+			return null;
 		}
 	}
 }

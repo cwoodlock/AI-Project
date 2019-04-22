@@ -1,6 +1,7 @@
 package ie.gmit.sw.ai.traversers;
 
 import java.awt.Color;
+import java.util.LinkedList;
 
 import ie.gmit.sw.ai.maze.*;
 public class IDDFSTraversator implements Traversator{
@@ -8,10 +9,12 @@ public class IDDFSTraversator implements Traversator{
 	private boolean keepRunning = true;
 	private long time = System.currentTimeMillis();
 	private int visitCount = 0;
+	private LinkedList<Node> positions;
 	
 	public void traverse(Node[][] maze, Node start) {
 		this.maze = maze;
 		int limit = 1;
+		positions = new LinkedList<Node>();
 		
 		while(keepRunning){
 			dfs(start, 0, limit);
@@ -62,6 +65,15 @@ public class IDDFSTraversator implements Traversator{
 				maze[i][j].setParent(null);
 				maze[i][j].setColor(Color.BLACK);
 			}
+		}
+	}
+
+	@Override
+	public Node getPosition() {
+		if (!positions.isEmpty()) {
+			return positions.pop();
+		} else{
+			return null;
 		}
 	}
 }

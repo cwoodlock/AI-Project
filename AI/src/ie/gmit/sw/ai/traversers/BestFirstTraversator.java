@@ -4,9 +4,11 @@ import ie.gmit.sw.ai.maze.*;
 import java.util.*;
 public class BestFirstTraversator implements Traversator{
 	private Node goal;
+	private LinkedList<Node> positions;
 	
 	public BestFirstTraversator(Node goal){
 		this.goal = goal;
+		positions = new LinkedList<Node>();
 	}
 	
 	public void traverse(Node[][] maze, Node node) {
@@ -43,6 +45,15 @@ public class BestFirstTraversator implements Traversator{
 			
 			//Sort the whole queue. Effectively a priority queue, first in, best out
 			Collections.sort(queue,(Node current, Node next) -> current.getHeuristic(goal) - next.getHeuristic(goal));		
+		}
+	}
+
+	@Override
+	public Node getPosition() {
+		if (!positions.isEmpty()) {
+			return positions.pop();
+		} else{
+			return null;
 		}
 	}
 }

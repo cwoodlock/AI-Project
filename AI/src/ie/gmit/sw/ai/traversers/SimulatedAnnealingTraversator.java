@@ -1,11 +1,15 @@
 package ie.gmit.sw.ai.traversers;
 
+import java.util.LinkedList;
+
 import ie.gmit.sw.ai.maze.*;
 public class SimulatedAnnealingTraversator implements Traversator{
 	private Node goal;
+	private LinkedList<Node> positions;
 	
 	public SimulatedAnnealingTraversator(Node goal){
 		this.goal = goal;
+		positions = new LinkedList<Node>();
 	}
 	
 	public void traverse(Node[][] maze, Node current) {
@@ -76,5 +80,14 @@ public class SimulatedAnnealingTraversator implements Traversator{
 			if (current.getHeuristic(goal) < best.getHeuristic(goal)) best = current;
             temperature *= (1 - alpha); //Cool system
         }
+	}
+
+	@Override
+	public Node getPosition() {
+		if (!positions.isEmpty()) {
+			return positions.pop();
+		} else{
+			return null;
+		}
 	}
 }

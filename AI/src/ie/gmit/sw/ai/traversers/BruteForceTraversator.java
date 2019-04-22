@@ -5,9 +5,11 @@ import ie.gmit.sw.ai.maze.*;
 import java.util.*;
 public class BruteForceTraversator implements Traversator{
 	private boolean dfs = false;
+	private LinkedList<Node> positions;
 	
 	public BruteForceTraversator(boolean depthFirst){
 		this.dfs = depthFirst;
+		positions = new LinkedList<Node>();
 	}
 	
 	public void traverse(Node[][] maze, Node node) {
@@ -45,6 +47,15 @@ public class BruteForceTraversator implements Traversator{
 					}
 				}									
 			}			
+		}
+	}
+
+	@Override
+	public Node getPosition() {
+		if (!positions.isEmpty()) {
+			return positions.pop();
+		} else{
+			return null;
 		}
 	}
 }

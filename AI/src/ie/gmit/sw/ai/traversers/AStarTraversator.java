@@ -4,9 +4,11 @@ import ie.gmit.sw.ai.maze.*;
 import java.util.*;
 public class AStarTraversator implements Traversator{
 	private Node goal;
+	private LinkedList<Node> positions;
 	
 	public AStarTraversator(Node goal){
 		this.goal = goal;
+		positions = new LinkedList<Node>();
 	}
 	
 	public void traverse(Node[][] maze, Node node) {
@@ -53,6 +55,15 @@ public class AStarTraversator implements Traversator{
 					open.add(child);
 				}
 			}									
+		}
+	}
+
+	@Override
+	public Node getPosition() {
+		if (!positions.isEmpty()) {
+			return positions.pop();
+		} else{
+			return null;
 		}
 	}
 }

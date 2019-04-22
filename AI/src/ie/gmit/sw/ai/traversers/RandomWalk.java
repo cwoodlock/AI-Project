@@ -1,8 +1,14 @@
 package ie.gmit.sw.ai.traversers;
 
+import java.util.LinkedList;
+
 import ie.gmit.sw.ai.maze.*;
 public class RandomWalk implements Traversator{
+	
+	private LinkedList<Node> positions;
+	
 	public void traverse(Node[][] maze, Node node) {
+		positions = new LinkedList<Node>();
         long time = System.currentTimeMillis();
     	int visitCount = 0;
     	   	
@@ -33,5 +39,14 @@ public class RandomWalk implements Traversator{
 		}
 		
 		if (!complete) System.out.println("*** Out of steps....");
+	}
+
+	@Override
+	public Node getPosition() {
+		if (!positions.isEmpty()) {
+			return positions.pop();
+		} else{
+			return null;
+		}
 	}
 }

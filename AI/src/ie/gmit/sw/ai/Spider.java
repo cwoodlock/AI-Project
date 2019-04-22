@@ -43,14 +43,9 @@ public class Spider extends TimerTask{
 		//create The traversers dependig on what level the sider is
 		createSpiderTraversers();
 		
-		pathPainter();
-	}
-	
-	private void pathPainter() {
-		// TODO Auto-generated method stub
 		
 	}
-
+	
 	private void createSpiderTraversers() {
 		//create different spider traversers depending on their level higher the level the bette the traverser
 		if(spiderLevel == 0) {
@@ -93,7 +88,7 @@ public class Spider extends TimerTask{
 	
 	public void move() {
 		//This needs to get the current positon 
-		Node pathNode = null;
+		Node pathNode = traversator.getPosition();
 		if (newNode != null) {
 			// set current node to new node
 			globalNode[currentNode.getRow()][currentNode.getCol()].setHasSpider(false);

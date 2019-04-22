@@ -5,10 +5,13 @@ import java.util.*;
 public class BeamTraversator implements Traversator{
 	private Node goal;
 	private int beamWidth= 1; 
+	private LinkedList<Node> positions;
+	
 	
 	public BeamTraversator(Node goal,  int beamWidth){
 		this.goal = goal;
 		this.beamWidth = beamWidth;
+		positions = new LinkedList<Node>();
 	}
 	
 	public void traverse(Node[][] maze, Node node) {
@@ -51,6 +54,15 @@ public class BeamTraversator implements Traversator{
 					queue.addFirst(children[i]);
 				}
 			}
+		}
+	}
+
+	@Override
+	public Node getPosition() {
+		if (!positions.isEmpty()) {
+			return positions.pop();
+		} else{
+			return null;
 		}
 	}
 }

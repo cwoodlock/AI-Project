@@ -1,15 +1,19 @@
 package ie.gmit.sw.ai.traversers;
 
 import java.awt.Color;
+import java.util.LinkedList;
+
 import ie.gmit.sw.ai.maze.*;
 public class IDAStarTraversator implements Traversator{
 	private Node[][] maze;
 	private Node goal;
 	private int visitCount = 0;
 	private long time;
+	private LinkedList<Node> positions;
 	
 	public IDAStarTraversator( Node goal){
 		this.goal = goal;
+		positions = new LinkedList<Node>();
 	}
 	
 	public void traverse(Node[][] maze, Node start) {
@@ -80,6 +84,15 @@ public class IDAStarTraversator implements Traversator{
 				maze[i][j].setParent(null);
 				maze[i][j].setColor(Color.BLACK);
 			}
+		}
+	}
+
+	@Override
+	public Node getPosition() {
+		if (!positions.isEmpty()) {
+			return positions.pop();
+		} else{
+			return null;
 		}
 	}
 }

@@ -37,6 +37,9 @@ public class Help {
 		
 		//Create the traversers
 		createBookTraversers();
+		
+		//Paint the path in the direction of the goal node
+		pathPainter();
 	}
 
 	private void createBookTraversers() {
@@ -60,7 +63,7 @@ public class Help {
 	public void pathPainter(){
 		for (int i = 0; i < MAX_PATH; i++) {
 			//This needs to get the current positon 
-			Node pathNode = null;
+			Node pathNode = traversator.getPosition();
 			if (pathNode != null) {
 				globalNode[pathNode.getRow()][pathNode.getCol()].setHasHelpPath(true);
 			}

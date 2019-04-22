@@ -4,9 +4,11 @@ import java.util.*;
 import ie.gmit.sw.ai.maze.*;
 public class SteepestAscentHillClimbingTraversator implements Traversator{
 	private Node goal;
+	private LinkedList<Node> positions;
 	
 	public SteepestAscentHillClimbingTraversator(Node goal){
 		this.goal = goal;
+		positions = new LinkedList<Node>();
 	}
 	
 	public void traverse(Node[][] maze, Node node) {
@@ -43,6 +45,15 @@ public class SteepestAscentHillClimbingTraversator implements Traversator{
 					queue.addFirst(children[i]); //LIFO
 				}
 			}
+		}
+	}
+
+	@Override
+	public Node getPosition() {
+		if (!positions.isEmpty()) {
+			return positions.pop();
+		} else{
+			return null;
 		}
 	}
 }

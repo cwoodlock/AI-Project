@@ -1,11 +1,15 @@
 package ie.gmit.sw.ai.traversers;
 
+import java.util.LinkedList;
+
 import ie.gmit.sw.ai.maze.*;
 public class BasicHillClimbingTraversator implements Traversator{
 	private Node goal;
+	private LinkedList<Node> positions;
 	
 	public BasicHillClimbingTraversator(Node goal){
 		this.goal = goal;
+		positions = new LinkedList<Node>();
 	}
 	
 	public void traverse(Node[][] maze, Node node) {
@@ -46,6 +50,15 @@ public class BasicHillClimbingTraversator implements Traversator{
 			}
 			node = next;	
 			next = null;
+		}
+	}
+
+	@Override
+	public Node getPosition() {
+		if (!positions.isEmpty()) {
+			return positions.pop();
+		} else{
+			return null;
 		}
 	}
 }

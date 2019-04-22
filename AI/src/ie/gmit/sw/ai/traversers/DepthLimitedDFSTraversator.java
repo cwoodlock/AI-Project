@@ -1,5 +1,7 @@
 package ie.gmit.sw.ai.traversers;
 
+import java.util.LinkedList;
+
 import ie.gmit.sw.ai.maze.*;
 public class DepthLimitedDFSTraversator implements Traversator{
 	private Node[][] maze;
@@ -7,9 +9,11 @@ public class DepthLimitedDFSTraversator implements Traversator{
 	private boolean keepRunning = true;
 	private long time = System.currentTimeMillis();
 	private int visitCount = 0;
+	private LinkedList<Node> positions;
 	
 	public DepthLimitedDFSTraversator(int limit){
 		this.limit = limit;
+		positions = new LinkedList<Node>();
 	}
 	
 	public void traverse(Node[][] maze, Node node) {
@@ -43,6 +47,15 @@ public class DepthLimitedDFSTraversator implements Traversator{
 				children[i].setParent(node);
 				dfs(children[i], depth + 1);
 			}
+		}
+	}
+
+	@Override
+	public Node getPosition() {
+		if (!positions.isEmpty()) {
+			return positions.pop();
+		} else{
+			return null;
 		}
 	}
 }
