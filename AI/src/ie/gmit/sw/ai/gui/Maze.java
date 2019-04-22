@@ -1,4 +1,8 @@
-package ie.gmit.sw.ai;
+/*Colm Woodlock
+ * G00341460
+ * Adapted from base project and labs from AI module
+ */
+package ie.gmit.sw.ai.gui;
 
 import java.util.Random;
 
@@ -47,7 +51,7 @@ public class Maze {
 			int col = (int) (maze[0].length * Math.random());
 			
 			if (maze[row][col].getState() == replace){
-				if(feature == '\u0032') {
+				if(feature == '\u0032') { //if it is a help marker
 					maze[row][col].setHelpOnTile(true);
 				}
 				maze[row][col].setState(feature);
@@ -56,6 +60,7 @@ public class Maze {
 		}
 	}
 	
+	//This builds the maze
 	private void buildMaze(){ 
 		for (int row = 1; row < maze.length - 1; row++){
 			for (int col = 1; col < maze[row].length - 1; col++){
@@ -70,6 +75,7 @@ public class Maze {
 		}	
 	}
 	
+	//Checks if there is a room in the maze trying to mittigate this
 	private boolean isRoom(int row, int col){ //Flaky and only works half the time, but reduces the number of rooms
 		return row > 1 && maze[row - 1][col].getState() == '\u0020' && maze[row - 1][col + 1].getState() == '\u0020';
 	}
@@ -80,13 +86,14 @@ public class Maze {
 		return goal;
 	}
 
+	//This sets the goal node
 	public void setGoalNode() {
 		int randRow = (int) (maze.length * Math.random());
 		int randCol = (int) (maze.length * Math.random());
 		
 		maze[randRow][randCol].setGoalNode(true);
 		goal = maze[randRow][randCol];
-		maze[randRow][randCol].setState('G');
+		maze[randRow][randCol].setState('G'); //sets state to G
 	}
 
 	public Node[][] getMaze(){

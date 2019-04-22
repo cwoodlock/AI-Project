@@ -1,4 +1,8 @@
-package ie.gmit.sw.ai;
+/*Colm Woodlock
+ * G00341460
+ * Adapted from base project and labs from AI module
+ */
+package sprites;
 
 import java.util.TimerTask;
 
@@ -49,7 +53,7 @@ public class Spider extends TimerTask{
 	private void createSpiderTraversers() {
 		//create different spider traversers depending on their level higher the level the bette the traverser
 		if(spiderLevel == 0) {
-			traversator = new RandomWalk();
+			traversator = new BruteForceTraversator(true);
 		}else if(spiderLevel == 1) {
 			traversator = new BruteForceTraversator(true);
 		}else if(spiderLevel == 2) {
@@ -88,7 +92,7 @@ public class Spider extends TimerTask{
 	
 	//Get the spider moving 
 	public void move() {
-		//This needs to get the current positon 
+		//This needs to get the current positon ERROR HERE
 		Node newNode = traversator.getPosition();
 		if (newNode != null) {
 			// set current node to new node
@@ -102,7 +106,8 @@ public class Spider extends TimerTask{
 		currentNode = newNode;
 		newNode = null;
 		} else {
-			System.out.println("No positions to pop.");
+			System.out.println("****No positions to pop.****"); //Nothing in the linked list
+			//Tries to create the traversers for the spiders
 			createSpiderTraversers();
 		}
 	}

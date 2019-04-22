@@ -1,4 +1,8 @@
-package ie.gmit.sw.ai;
+/*Colm Woodlock
+ * G00341460
+ * Adapted from base project and labs from AI module
+ */
+package sprites;
 
 import java.util.LinkedList;
 import java.util.Random;
@@ -54,7 +58,7 @@ public class SpiderControl {
 			row = (int) (globalNode.length * Math.random());
 			col = (int) (globalNode.length * Math.random());
 
-			if (globalNode[row][col].getState() != 'W') {
+			if (globalNode[row][col].getState() != '\u0036') {
 				foundPos = true;
 			}
 		} while (!foundPos);

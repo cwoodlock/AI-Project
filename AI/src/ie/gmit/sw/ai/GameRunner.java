@@ -1,9 +1,15 @@
+/*Colm Woodlock
+ * G00341460
+ * Adapted from base project and labs from AI module
+ */
 package ie.gmit.sw.ai;
 
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
+import ie.gmit.sw.ai.gui.GameView;
+import ie.gmit.sw.ai.gui.Maze;
 import ie.gmit.sw.ai.maze.MazeGenerator;
 import ie.gmit.sw.ai.maze.MazeGeneratorFactory;
 import ie.gmit.sw.ai.maze.MazeView;
@@ -13,6 +19,12 @@ import net.sourceforge.jFuzzyLogic.FIS;
 import net.sourceforge.jFuzzyLogic.FunctionBlock;
 import net.sourceforge.jFuzzyLogic.plot.JFuzzyChart;
 import net.sourceforge.jFuzzyLogic.rule.Variable;
+import sprites.ControlledSprite;
+import sprites.Direction;
+import sprites.Help;
+import sprites.Spider;
+import sprites.SpiderControl;
+import sprites.Sprite;
 
 import java.util.Random;
 public class GameRunner implements KeyListener{

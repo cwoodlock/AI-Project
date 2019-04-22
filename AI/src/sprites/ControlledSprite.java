@@ -1,4 +1,8 @@
-package ie.gmit.sw.ai;
+/*Colm Woodlock
+ * G00341460
+ * Adapted from base project and labs from AI module
+ */
+package sprites;
 
 import javax.imageio.*;
 import javax.swing.JOptionPane;

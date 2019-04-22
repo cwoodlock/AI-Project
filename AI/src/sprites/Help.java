@@ -1,4 +1,8 @@
-package ie.gmit.sw.ai;
+/*Colm Woodlock
+ * G00341460
+ * Adapted from base project and labs from AI module
+ */
+package sprites;
 
 import ie.gmit.sw.ai.maze.Node;
 import ie.gmit.sw.ai.traversers.BruteForceTraversator;
@@ -62,7 +66,7 @@ public class Help {
 	
 	public void pathPainter(){
 		for (int i = 0; i < MAX_PATH; i++) {
-			//This needs to get the current positon 
+			//This needs to get the current positon ERROR HERE
 			Node pathNode = traversator.getPosition();
 			if (pathNode != null) {
 				globalNode[pathNode.getRow()][pathNode.getCol()].setHasHelpPath(true);

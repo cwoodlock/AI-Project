@@ -1,11 +1,17 @@
-package ie.gmit.sw.ai;
+/*Colm Woodlock
+ * G00341460
+ * Adapted from base project and labs from AI module
+ */
+package ie.gmit.sw.ai.gui;
 
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
 import ie.gmit.sw.ai.maze.Node;
+import sprites.Sprite;
 public class GameView extends JPanel implements ActionListener{
+	//Variables
 	private static final long serialVersionUID = 1L;
 	public static final int DEFAULT_VIEW_SIZE = 800;
 	
@@ -25,6 +31,8 @@ public class GameView extends JPanel implements ActionListener{
 	private Color[] reds = {new Color(255,160,122), new Color(139,0,0), new Color(255, 0, 0)}; //Animate enemy "dots" to make them easier to see
 	private Node goal;
 	
+	
+	//GameView constructor
 	public GameView(Node[][] maze, Node goal) throws Exception{
 		this.goal =goal;
 		this.maze = maze;
@@ -34,6 +42,7 @@ public class GameView extends JPanel implements ActionListener{
 		timer.start();
 	}
 	
+	//Get the current row the user is in
 	public void setCurrentRow(int row) {
 		if (row < cellpadding){
 			currentRow = cellpadding;
@@ -44,6 +53,7 @@ public class GameView extends JPanel implements ActionListener{
 		}
 	}
 
+	//get the current column the player is in
 	public void setCurrentCol(int col) {
 		if (col < cellpadding){
 			currentCol = cellpadding;
@@ -53,7 +63,8 @@ public class GameView extends JPanel implements ActionListener{
 			currentCol = col;
 		}
 	}
-
+	
+	//Paint all the components onto the screen
 	public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D)g;
@@ -163,7 +174,7 @@ public class GameView extends JPanel implements ActionListener{
 	        	} else if (ch == 'G') {// G for Goal
 	        		imageIndex = 15; //set goal node to index 15
 	        		if (zoomOut) { //if zoomed out
-	        			g2.setColor(Color.pink); //paint exit white
+	        			g2.setColor(Color.red); //paint exit white
 	        			g2.fillRect(x1, y1, size, size);
 	        		}
 	        	} else if (ch == '\u0036' || ch == '\u0037' || ch == '\u0038' 
@@ -200,7 +211,8 @@ public class GameView extends JPanel implements ActionListener{
 		}
 		
 	}
-
+	
+	//This toggles the zoom in and out 
 	public void toggleZoom(){
 		zoomOut = !zoomOut;		
 	}
@@ -209,6 +221,7 @@ public class GameView extends JPanel implements ActionListener{
 		if (enemy_state < 0 || enemy_state == 5){
 			enemy_state = 6;
 		} else {
+			//Error relating to player sprite here if this is left as it was both spiders and player sprites interchange
 			//enemy_state = 5;
 		}
 		
