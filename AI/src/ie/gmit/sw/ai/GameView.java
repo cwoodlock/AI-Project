@@ -210,6 +210,7 @@ public class GameView extends JPanel implements ActionListener{
 		if (enemy_state < 0 || enemy_state == 5){
 			enemy_state = 6;
 		}
+		
 		this.repaint();
 	}
 	

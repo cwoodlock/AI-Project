@@ -12,6 +12,7 @@ public class Maze {
 		maze = new Node[dimension][dimension];
 		init();
 		buildMaze();
+		setGoalNode();
 		
 		int featureNumber = (int)((dimension * dimension) * 0.01); //Change this value to control the number of objects
 		addFeature('\u0031', '0', featureNumber); //1 is a sword, 0 is a hedge
@@ -29,7 +30,7 @@ public class Maze {
 		addFeature('\u003C', '0', featureNumber); //< is a Red Spider, 0 is a hedge
 		addFeature('\u003D', '0', featureNumber); //= is a Yellow Spider, 0 is a hedge
 	}
-	
+
 	private void init(){
 		for (int row = 0; row < maze.length; row++){
 			for (int col = 0; col < maze[row].length; col++){
@@ -76,10 +77,9 @@ public class Maze {
 		return goal;
 	}
 
-	public void setGoal(Node goal) {
-		Random generator = new Random();
-		int randRow = generator.nextInt(maze.length - 4) + 2;
-		int randCol = generator.nextInt(maze[0].length - 4) + 2;
+	public void setGoalNode() {
+		int randRow = (int) (maze.length * Math.random());
+		int randCol = (int) (maze.length * Math.random());
 		
 		maze[randRow][randCol].setGoalNode(true);
 		goal = maze[randRow][randCol];
