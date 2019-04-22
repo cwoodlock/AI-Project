@@ -222,7 +222,7 @@ public class GameView extends JPanel implements ActionListener{
 			enemy_state = 6;
 		} else {
 			//Error relating to player sprite here if this is left as it was both spiders and player sprites interchange
-			//enemy_state = 5;
+			enemy_state = 5;
 		}
 		
 		this.repaint();

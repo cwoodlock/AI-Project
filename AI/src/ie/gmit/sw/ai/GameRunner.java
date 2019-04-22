@@ -231,7 +231,7 @@ public class GameRunner implements KeyListener{
 
 			// AFTER FIGHT
 			System.out.println("Player health: " + player.getHealth());
-			System.out.println("Enemy health: " + spider.getHealth());
+			System.out.println("Spider health: " + spider.getHealth());
 			
 			//Run checks to see if player or spider are dead
 			if (player.getHealth() <= 0) {
