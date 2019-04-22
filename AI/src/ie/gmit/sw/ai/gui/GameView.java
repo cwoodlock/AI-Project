@@ -9,7 +9,7 @@ import java.awt.event.*;
 import javax.swing.*;
 
 import ie.gmit.sw.ai.maze.Node;
-import sprites.Sprite;
+import ie.gmit.sw.ai.sprites.Sprite;
 public class GameView extends JPanel implements ActionListener{
 	//Variables
 	private static final long serialVersionUID = 1L;

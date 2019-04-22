@@ -2,7 +2,7 @@
  * G00341460
  * Adapted from base project and labs from AI module
  */
-package sprites;
+package ie.gmit.sw.ai.sprites;
 
 import ie.gmit.sw.ai.maze.Node;
 import ie.gmit.sw.ai.traversers.BruteForceTraversator;

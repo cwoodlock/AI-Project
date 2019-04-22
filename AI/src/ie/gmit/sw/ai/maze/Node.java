@@ -2,8 +2,8 @@ package ie.gmit.sw.ai.maze;
 
 import java.awt.Color;
 
-import sprites.Help;
-import sprites.Spider;
+import ie.gmit.sw.ai.sprites.Help;
+import ie.gmit.sw.ai.sprites.Spider;
 public class Node {
 	//Variables
 	public enum NodeType {Wall, Passage};

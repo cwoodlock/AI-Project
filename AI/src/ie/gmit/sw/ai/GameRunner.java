@@ -14,17 +14,17 @@ import ie.gmit.sw.ai.maze.MazeGenerator;
 import ie.gmit.sw.ai.maze.MazeGeneratorFactory;
 import ie.gmit.sw.ai.maze.MazeView;
 import ie.gmit.sw.ai.maze.Node;
+import ie.gmit.sw.ai.sprites.ControlledSprite;
+import ie.gmit.sw.ai.sprites.Direction;
+import ie.gmit.sw.ai.sprites.Help;
+import ie.gmit.sw.ai.sprites.Spider;
+import ie.gmit.sw.ai.sprites.SpiderControl;
+import ie.gmit.sw.ai.sprites.Sprite;
 import ie.gmit.sw.ai.traversers.*;
 import net.sourceforge.jFuzzyLogic.FIS;
 import net.sourceforge.jFuzzyLogic.FunctionBlock;
 import net.sourceforge.jFuzzyLogic.plot.JFuzzyChart;
 import net.sourceforge.jFuzzyLogic.rule.Variable;
-import sprites.ControlledSprite;
-import sprites.Direction;
-import sprites.Help;
-import sprites.Spider;
-import sprites.SpiderControl;
-import sprites.Sprite;
 
 import java.util.Random;
 public class GameRunner implements KeyListener{
