@@ -147,12 +147,12 @@ public class GameRunner implements KeyListener{
 		// TODO Auto-generated method stub
     	if (maze[currentRow][currentCol].isHasSpider()) {
 			// Load fcl
-			String fileName = "fcl/strenght.fcl";
+			String fileName = "resources/fuzzy/fuzzy.fcl";
 			FIS fis = FIS.load(fileName, true);
 
 			// Error handling
 			if (fis == null) {
-				System.err.println("Can't load file: '" + fileName + "'");
+				System.err.println("Can't load file: " + fileName);
 				return;
 			}
 
@@ -217,9 +217,17 @@ public class GameRunner implements KeyListener{
    
 	private boolean isValidMove(int row, int col){
 		
-		if (row <= maze.length - 1 && col <= maze.length - 1 && maze[row][col].getState() == ' '){
-			maze[currentRow][currentCol].setState(' ');
-			maze[row][col].setState('5');
+		if (row <= maze.length - 1 && col <= maze[row].length - 1 && maze[row][col].getState() == '\u0020'
+				|| maze[row][col].getState() == '\u0032' 
+				|| maze[row][col].getState() == '\u0033' 
+				|| maze[row][col].getState() == '\u0034'
+				|| maze[row][col].getState() == '\u0031'
+				|| maze[row][col].getState() == 'G') {
+			
+					maze[currentRow][currentCol].setVisited(true);
+					maze[currentRow][currentCol].setState('\u0020');
+					maze[row][col].setState('\u0036');
+
 			return true;
 		}else {	
 			return false; //Can't move

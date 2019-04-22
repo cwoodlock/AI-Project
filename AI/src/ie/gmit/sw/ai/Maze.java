@@ -47,6 +47,9 @@ public class Maze {
 			int col = (int) (maze[0].length * Math.random());
 			
 			if (maze[row][col].getState() == replace){
+				if(feature == '\u0032') {
+					maze[row][col].setHelpOnTile(true);
+				}
 				maze[row][col].setState(feature);
 				counter++;
 			}
@@ -59,9 +62,9 @@ public class Maze {
 				int num = (int) (Math.random() * 10);
 				if (isRoom(row, col)) continue;
 				if (num > 5 && col + 1 < maze[row].length - 1){
-					maze[row][col + 1].setState(' ');; //\u0020 = 0x20 = 32 (base 10) = SPACE
+					maze[row][col + 1].setState('\u0020'); //\u0020 = 0x20 = 32 (base 10) = SPACE
 				}else {
-					if (row + 1 < maze.length - 1) maze[row + 1][col].setState('\u0020');;
+					if (row + 1 < maze.length - 1) maze[row + 1][col].setState('\u0020');
 				}
 			}
 		}	

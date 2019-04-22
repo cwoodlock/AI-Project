@@ -42,8 +42,15 @@ public class Spider extends TimerTask{
 		
 		//create The traversers dependig on what level the sider is
 		createSpiderTraversers();
+		
+		pathPainter();
 	}
 	
+	private void pathPainter() {
+		// TODO Auto-generated method stub
+		
+	}
+
 	private void createSpiderTraversers() {
 		//create different spider traversers depending on their level higher the level the bette the traverser
 		if(spiderLevel == 0) {

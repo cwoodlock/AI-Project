@@ -149,7 +149,7 @@ public class GameView extends JPanel implements ActionListener{
 	        			g2.fillRect(x1, y1, size, size);
 	        		}
 	        		
-	        	}else if (ch == ' ' && tileHasHelpPath == false)// if the nose is empty and there isn't a 
+	        	}else if (ch == '\u0020' && tileHasHelpPath == false)// if the node is empty and there isn't a help path
 	
 	        	{
 	        		imageIndex = 14; //Set the image to paint on the tile to 14
@@ -160,11 +160,10 @@ public class GameView extends JPanel implements ActionListener{
 	
 	
 	        		}
-	        	} else if (ch == 'G')// G for Goal
-	        	{
+	        	} else if (ch == 'G') {// G for Goal
 	        		imageIndex = 15; //set goal node to index 15
 	        		if (zoomOut) { //if zoomed out
-	        			g2.setColor(Color.white); //paint exit white
+	        			g2.setColor(Color.pink); //paint exit white
 	        			g2.fillRect(x1, y1, size, size);
 	        		}
 	        	} else if (ch == '\u0036' || ch == '\u0037' || ch == '\u0038' 
@@ -209,6 +208,8 @@ public class GameView extends JPanel implements ActionListener{
 	public void actionPerformed(ActionEvent e) {	
 		if (enemy_state < 0 || enemy_state == 5){
 			enemy_state = 6;
+		} else {
+			//enemy_state = 5;
 		}
 		
 		this.repaint();
