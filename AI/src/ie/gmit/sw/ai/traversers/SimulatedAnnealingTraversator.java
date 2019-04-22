@@ -36,6 +36,7 @@ public class SimulatedAnnealingTraversator implements Traversator{
 			if (next.isGoalNode()){
 		        time = System.currentTimeMillis() - time; //Stop the clock
 		        TraversatorStats.printStats(goal, time, visitCount);
+		        positions.add(goal);
 				break;
 			}
 			

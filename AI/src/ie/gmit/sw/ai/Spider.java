@@ -86,6 +86,7 @@ public class Spider extends TimerTask{
 		currentNode.setState('0');
 	}
 	
+	//Get the spider moving 
 	public void move() {
 		//This needs to get the current positon 
 		Node pathNode = traversator.getPosition();
@@ -100,8 +101,6 @@ public class Spider extends TimerTask{
 		// set new node to blank
 		currentNode = newNode;
 		newNode = null;
-
-//					System.out.println("New Pos: row: " + currentNode.getRow() + ",col: " + currentNode.getCol());
 		} else {
 			System.out.println("No positions to pop.");
 			createSpiderTraversers();

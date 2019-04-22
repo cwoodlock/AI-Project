@@ -23,6 +23,7 @@ public class DepthLimitedDFSTraversator implements Traversator{
 	}
 	
 	private void dfs(Node node, int depth){
+		positions.add(node);
 		if (!keepRunning || depth > limit) return;
 		
 		node.setVisited(true);	

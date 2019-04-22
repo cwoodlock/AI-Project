@@ -20,6 +20,7 @@ public class SteepestAscentHillClimbingTraversator implements Traversator{
     	
 		while(!queue.isEmpty()){
 			node = queue.poll();
+			positions.add(node);
 			visitCount++;
 			node.setVisited(true);		
 			

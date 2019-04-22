@@ -52,6 +52,7 @@ public class IDAStarTraversator implements Traversator{
 	private int contour(Node node, int g, int bound){
 		node.setVisited(true);
 		node.setPathCost(g);
+		positions.add(node);
 		visitCount++;
 		
 		try { //Simulate processing each expanded node

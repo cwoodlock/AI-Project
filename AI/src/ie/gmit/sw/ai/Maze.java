@@ -20,7 +20,7 @@ public class Maze {
 		addFeature('\u0033', '0', featureNumber); //3 is a bomb, 0 is a hedge
 		addFeature('\u0034', '0', featureNumber); //4 is a hydrogen bomb, 0 is a hedge
 		
-		featureNumber = (int)((dimension * dimension) * 0.001); //Change this value to control the number of spiders
+		featureNumber = (int)((dimension * dimension) * 0.1); //Change this value to control the number of spiders
 		addFeature('\u0036', '0', featureNumber); //6 is a Black Spider, 0 is a hedge
 		addFeature('\u0037', '0', featureNumber); //7 is a Blue Spider, 0 is a hedge
 		addFeature('\u0038', '0', featureNumber); //8 is a Brown Spider, 0 is a hedge

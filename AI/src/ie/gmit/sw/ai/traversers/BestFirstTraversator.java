@@ -20,6 +20,7 @@ public class BestFirstTraversator implements Traversator{
     	
 		while(!queue.isEmpty()){
 			node = queue.poll();
+			positions.add(node);
 			node.setVisited(true);	
 			visitCount++;
 			

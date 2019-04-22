@@ -30,6 +30,7 @@ public class GameRunner implements KeyListener{
 	
 	private Random rand = new Random(); //used to generate a random number
 	
+	private boolean gameRunning = true;
 	
 	//Node info
 	private Node[][] maze;
@@ -98,42 +99,46 @@ public class GameRunner implements KeyListener{
 
 	//Key press events/Game Controls
     public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_RIGHT && currentCol < MAZE_DIMENSION - 1) {
-        	if (isValidMove(currentRow, currentCol + 1)){
-				player.setDirection(Direction.RIGHT);
-				currentCol++;  //Move player Right
-        	}   		
-        }else if (e.getKeyCode() == KeyEvent.VK_LEFT && currentCol > 0) {
-        	if (isValidMove(currentRow, currentCol - 1)) {
-				player.setDirection(Direction.LEFT);
-				currentCol--;	//Move Player Left
-			}
-        }else if (e.getKeyCode() == KeyEvent.VK_UP && currentRow > 0) {
-        	if (isValidMove(currentRow - 1, currentCol)) {
-				player.setDirection(Direction.UP);
-				currentRow--; //Move Player Up
-			}
-        }else if (e.getKeyCode() == KeyEvent.VK_DOWN && currentRow < MAZE_DIMENSION - 1) {
-        	if (isValidMove(currentRow + 1, currentCol)){
-        		player.setDirection(Direction.DOWN);
-				currentRow++; //Move Player Down
-        	}         	  	
-        }else if (e.getKeyCode() == KeyEvent.VK_Z){
-        	view.toggleZoom(); //Toggle zoom in and out
-        }else if(e.getKeyCode() == KeyEvent.VK_ESCAPE){
-        	System.exit(0);	 //Exit the game
-        }else {
-        	return;
-        }
-        
-        updateView();
-        
-        //Fuzzy logic for fight with enemy
-        fuzzyFight();
-        
-        //Check the tile
-        checkTile();
+    	if(gameRunning) {
+	        if (e.getKeyCode() == KeyEvent.VK_RIGHT && currentCol < MAZE_DIMENSION - 1) {
+	        	if (isValidMove(currentRow, currentCol + 1)){
+					player.setDirection(Direction.RIGHT);
+					currentCol++;  //Move player Right
+	        	}   		
+	        }else if (e.getKeyCode() == KeyEvent.VK_LEFT && currentCol > 0) {
+	        	if (isValidMove(currentRow, currentCol - 1)) {
+					player.setDirection(Direction.LEFT);
+					currentCol--;	//Move Player Left
+				}
+	        }else if (e.getKeyCode() == KeyEvent.VK_UP && currentRow > 0) {
+	        	if (isValidMove(currentRow - 1, currentCol)) {
+					player.setDirection(Direction.UP);
+					currentRow--; //Move Player Up
+				}
+	        }else if (e.getKeyCode() == KeyEvent.VK_DOWN && currentRow < MAZE_DIMENSION - 1) {
+	        	if (isValidMove(currentRow + 1, currentCol)){
+	        		player.setDirection(Direction.DOWN);
+					currentRow++; //Move Player Down
+	        	}         	  	
+	        }else if (e.getKeyCode() == KeyEvent.VK_Z){
+	        	view.toggleZoom(); //Toggle zoom in and out
+	        }else if(e.getKeyCode() == KeyEvent.VK_ESCAPE){
+	        	gameRunning = false;
+	        	System.exit(0);	 //Exit the game
+	        }else {
+	        	return;
+	        }
+	        
+	        updateView();
+	        
+	        //Fuzzy logic for fight with enemy
+	        fuzzyFight();
+	        
+	        //Check the tile
+	        checkTile();
+    	}
     }
+
     private void checkTile() {
 		// TODO Auto-generated method stub
     	if (maze[currentRow][currentCol].isHelpOnTile()) {
@@ -145,7 +150,7 @@ public class GameRunner implements KeyListener{
 
 	private void fuzzyFight() {
 		// TODO Auto-generated method stub
-    	if (maze[currentRow][currentCol].isHasSpider()) {
+    	if (maze[currentRow][currentCol].getState() == '\u0036') {
 			// Load fcl
 			String fileName = "resources/fuzzy/fuzzy.fcl";
 			FIS fis = FIS.load(fileName, true);
@@ -202,7 +207,8 @@ public class GameRunner implements KeyListener{
 			
 			//Run checks to see if player or spider are dead
 			if (player.getHealth() <= 0) {
-				player.kill();	
+				player.kill();
+				gameRunning = false;
 			}
 			
 			if (spider.getHealth() <= 0) {

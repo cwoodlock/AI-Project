@@ -17,6 +17,7 @@ public class RecursiveDFSTraversator implements Traversator{
 	}
 	
 	private void dfs(Node node){
+		positions.add(node);
 		if (!keepRunning) return;
 		
 		node.setVisited(true);	

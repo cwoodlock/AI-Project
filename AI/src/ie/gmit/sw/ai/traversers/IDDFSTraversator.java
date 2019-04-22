@@ -32,6 +32,7 @@ public class IDDFSTraversator implements Traversator{
 	}
 
 	private void dfs(Node node, int depth, int limit){
+		positions.add(node);
 		if (!keepRunning || depth > limit) return;		
 		node.setVisited(true);	
 		visitCount++;

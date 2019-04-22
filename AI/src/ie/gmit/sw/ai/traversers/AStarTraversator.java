@@ -23,7 +23,8 @@ public class AStarTraversator implements Traversator{
 		while(!open.isEmpty()){
 			node = open.poll();		
 			closed.add(node);
-			node.setVisited(true);	
+			node.setVisited(true);
+			positions.add(node);
 			visitCount++;
 			
 			if (node.isGoalNode()){

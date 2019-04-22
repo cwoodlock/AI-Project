@@ -48,7 +48,8 @@ public class BasicHillClimbingTraversator implements Traversator{
 				System.out.println("Cannot improve on current node " + node.toString() + " \nh(n)=" + node.getHeuristic(goal) + " = Local Optimum...");
 				break;
 			}
-			node = next;	
+			node = next;
+			positions.add(node);
 			next = null;
 		}
 	}

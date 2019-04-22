@@ -35,7 +35,8 @@ public class RandomWalk implements Traversator{
 			
 			//Pick a random adjacent node
         	Node[] children = node.children(maze);
-        	node = children[(int)(children.length * Math.random())];		
+        	node = children[(int)(children.length * Math.random())];	
+        	positions.add(node);
 		}
 		
 		if (!complete) System.out.println("*** Out of steps....");
