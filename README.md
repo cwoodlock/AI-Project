@@ -48,6 +48,6 @@ As well as this issue the fuzzy logic does not seem to be working for some reaso
 
 ## Pictures of the game running
 
-![Alt Text](https://raw.githubusercontent.com/cwoodlock/AI-Project/master/AI/resources/pics/GoalNode.png?token=AGURCVUOBPJPJBJAVLNNI4S4XYPGO)!
+![Alt Text](https://raw.githubusercontent.com/cwoodlock/AI-Project/master/AI/resources/pics/GoalNode.png?token=AGURCVUOBPJPJBJAVLNNI4S4XYPGO)
 
 [Alt Text](https://raw.githubusercontent.com/cwoodlock/AI-Project/master/AI/resources/pics/ZoomOut.png?token=AGURCVQE7GQETM752NEPWVK4XYPGW)
