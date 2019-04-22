@@ -35,6 +35,9 @@ public class GameRunner implements KeyListener{
 	private Node[][] maze;
 	private Node goal;
 	
+	//This will control what traversal algorithm the help marker will apply
+	private int helpLv = 0;
+	
 	public GameRunner() throws Exception{
 		//MazeGeneratorFactory factory = MazeGeneratorFactory.getInstance();
 		//MazeGenerator generator = factory.getMazeGenerator(MazeGenerator.GeneratorAlgorithm.RecursiveBacktracker, MAZE_DIMENSION, MAZE_DIMENSION);
@@ -57,7 +60,7 @@ public class GameRunner implements KeyListener{
     	
     	this.goal = m.getGoal();
 		Random random = new Random();
-		int help = random.nextInt(4);
+		helpLv = random.nextInt(4);
        
 	}
 	
@@ -127,8 +130,20 @@ public class GameRunner implements KeyListener{
         
         //Fuzzy logic for fight with enemy
         fuzzyFight();
+        
+        //Check the tile
+        checkTile();
     }
-    private void fuzzyFight() {
+    private void checkTile() {
+		// TODO Auto-generated method stub
+    	if (maze[currentRow][currentCol].isHelpOnTile()) {
+			Help help = new Help(new Node(currentRow, currentCol), goal, maze, helpLv);
+			helpLv++;
+			maze[currentRow][currentCol].setHelpOnTile(false);
+		}
+	}
+
+	private void fuzzyFight() {
 		// TODO Auto-generated method stub
     	if (maze[currentRow][currentCol].isHasSpider()) {
 			// Load fcl
